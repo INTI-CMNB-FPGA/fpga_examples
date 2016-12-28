@@ -2,20 +2,20 @@
 
 * avnet_s6micro:
   * gpios:
-  * memory:
+  * lpddr:
 * lattice_icestick:
   * gpios:
-* lattice_iCE40-HX8K_breakout:
+* lattice_breakout:
   * gpios:
-* microsemi_m2s090ts_eval_kit:
-  * gbt:
+* microsemi_m2s090ts:
+  * epcs:
   * gpios:
 * terasic_de0nano
   * gpios:
 * xilinx_sp601:
   * gpios:
 * xilinx_ml605:
-  * gbt:
-  * gbt2:
+  * ddr3:
   * gpios:
-  * memory:
+  * gtx:
+  * gtx2:

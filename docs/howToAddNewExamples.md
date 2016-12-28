@@ -2,11 +2,10 @@
 1. Use/create a <vendor_board> sub directory under *examples* directory, where:
    * vendor: name of the vendor of the board.
    * board: name/code of the board.
-2. Create (if not exists yet) a README.md file with general information about Features, Power Management and Programming Options of the board.
+2. Create (if not exists yet) a README.md file with general information about Features, Power Supply and Programming Options of the board.
 3. Create a sub directory for the example.
    * gpios: for examples about GPIOs (including LEDs and switches).
-   * gbt: for examples about GigaBit transceivers.
-   * memory: for examples about memory controllers.
+   * Self-explaining short names (such as ddr3, gtx, epcs, etc) for others.
    * Note: use 2, 3 and so on when more than one example.
 4. [optional] Obtain additional files provided by the vendor and put them on resources directory.
 5. Create the top level of you example (top.vhdl) and a wrapper (wrapper.vhdl) [optional] when needed.

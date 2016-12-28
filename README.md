@@ -18,8 +18,8 @@ example directory:
 * Several <vendor_board> sub directories.
 
 <vendor_board> directories:
-* README.md: general information about features, Power Management and Programming Options.
-* Directories with examples for the given board, with names such as gpios, gbt (GigaBit Transciver), memory, etc.
+* README.md: general information about features, Power Supply and Programming Options.
+* Directories with examples for the given board.
 
 Examples directories:
 * README.md: tutorial about how to run and reproduce the example.
