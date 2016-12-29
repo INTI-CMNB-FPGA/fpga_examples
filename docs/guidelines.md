@@ -3,15 +3,15 @@
 ## git logs
 
 Must be in the manner:
+```
+target: very short description
 
-  target: very short description
-  
-  Long description with items if needed:
-  * target is a directory, such as docs or any of the <vendor_board>.
-  * If you don't have a very short description, consider to do partial commits.
-  * In long description, you can explain what do you add or fixed as general concept.
-  * You can also use a list of items explaining what do you do in individual files.
-
+Long description with items if needed:
+* target is a directory, such as docs or any of the *vendor_board*.
+* If you don't have a very short description, consider to do partial commits.
+* In long description, you can explain what do you add or fixed as general concept.
+* You can also use a list of items explaining what do you do in individual files.
+```
 ## HDL code
 
 * VHDL is the prefered HDL language to use.
@@ -22,15 +22,16 @@ Must be in the manner:
 ## File Header
 
 Developed HDL files such as wrapper.vhdl, top.vhdl and top_tb.vhdl must have a header in the manner:
-
-  --
-  -- Name
-  --
-  -- Description
-  --
-  -- Author(s):
-  -- * Name of the author(s) of the file
-  --
-  -- Copyright (c) Year Authors
-  -- Distributed under the BSD 3-Clause License
-  --
+```
+--
+-- Name
+--
+-- Description
+--
+-- Author(s):
+-- * Name of the author(s) of the file
+--
+-- Copyright (c) Year Authors
+-- Distributed under the BSD 3-Clause License
+--
+```
