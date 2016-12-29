@@ -24,6 +24,6 @@
   * clock: using the two on-board clock sources to blink LEDs.
   * ddr3:
   * gpios: using DIP switches and push-buttons to turn ON LEDs.
-  * gtx:
+  * gtx:   using a versy simple gtx wrapper with 2 data bytes and 8b10b codification to change LEDs state with the DIP switches.
   * gtx2:
   * mmcm:  using Mixed-Mode Clock Manager to blink LEDs.
