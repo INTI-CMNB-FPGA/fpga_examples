@@ -1,0 +1,3 @@
+[submodule "hdl_utils"]
+	path = hdl_utils
+	url = gitolite@peron:hdl_utils
