@@ -30,4 +30,5 @@ CPU Reset push-button (SW10) is used to stop and restart blink cycle.
 
 # Comments
 
-Note how to use a differential clock. Some Xilinx examples use IBUFDS + BUFG when IBUFGDS is enough.
+* Note how to use a differential clock. Some Xilinx examples use IBUFDS + BUFG when IBUFGDS is enough.
+* Note that library UNISIM and package VCOMPONENTS was needed to use the primitives.

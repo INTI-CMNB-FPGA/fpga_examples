@@ -1,0 +1,7 @@
+vhdl utils ../../../../hdl_utils/vhdl/verif/verif_pkg.vhdl
+vhdl utils ../../../../hdl_utils/vhdl/verif/blink.vhdl
+vhdl work  ../resources/mmcm.vhd
+vhdl work  ../top.vhdl
+vhdl utils ../../../../hdl_utils/vhdl/simul/simul_pkg.vhdl
+vhdl utils ../../../../hdl_utils/vhdl/simul/clock.vhdl
+vhdl work  top_tb.vhdl

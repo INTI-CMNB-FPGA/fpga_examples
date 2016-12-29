@@ -26,3 +26,4 @@
   * gpios: using DIP switches and push-buttons to turn ON LEDs.
   * gtx:
   * gtx2:
+  * mmcm:  using Mixed-Mode Clock Manager to blink LEDs.

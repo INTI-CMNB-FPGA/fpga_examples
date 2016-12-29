@@ -1,0 +1,9 @@
+NET "clk_p_i"              LOC = "J9";
+NET "clk_n_i"              LOC = "H9";
+NET "rst_i"                LOC = "H10";
+NET "leds_o[0]"            LOC = "AC22";
+NET "leds_o[1]"            LOC = "AC24";
+NET "leds_o[2]"            LOC = "AE22";
+NET "leds_o[3]"            LOC = "AE23";
+NET "leds_o[4]"            LOC = "AB23";
+NET "leds_o[5]"            LOC = "AG23";
