@@ -15,9 +15,9 @@ Root directory:
 
 example directory:
 * README.md: list of available examples.
-* Several <vendor_board> sub directories.
+* Several *vendor_board* sub directories.
 
-<vendor_board> directories:
+*vendor_board* directories:
 * README.md: general information about features, Power Supply and Programming Options.
 * Directories with examples for the given board.
 
