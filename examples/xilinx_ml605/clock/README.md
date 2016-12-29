@@ -14,19 +14,26 @@ CPU Reset push-button (SW10) is used to stop and restart blink cycle.
 
 * For the used FPGA, ISE Design Suite (this example use version 14.7) with a valid license is needed.
 * Prepare the environment to use ISE. For example, run:
- $ . /<PATH_TO_ISE>/ISE_DS/settings64.sh
+```
+$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh
+```
 * Run synthesis, implementation and bitstream generation:
- $ make bit
+```
+$ make bit
+```
 * Run programing (if fpga_helpers is installed):
- $ make prog-fpga
+```
+$ make prog-fpga
+```
 * Or use impact:
- $ impact
-
+```
+$ impact
+```
 # How to test on hardware
 
 * You must see the 12 user LEDs blinking (1 second ON, 1 second OFF).
 * GPIO LEDS with the pattern: "01010101" -> "10101010".
-* Direction LEDS with the patter: '0' at center, '1' when others -> '1' at cneter, '0' when others.
+* Direction LEDS with the patter: '0' at center, '1' when others -> '1' at center, '0' when others.
 
 # Comments
 

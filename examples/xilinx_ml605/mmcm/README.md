@@ -39,25 +39,41 @@ The testbench are only stimulus to see waveforms.
 
 * For the used FPGA, ISE Design Suite (this example use version 14.7) with a valid license is needed.
 * Prepare the environment to use ISE Isim. For example, run:
- $ . /<PATH_TO_ISE>/ISE_DS/settings64.sh
+```
+$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh
+```
 * Enter to testbench directory
- $ cd testbench
+```
+$ cd testbench
+```
 * Compiling
- $ make
+```
+$ make
+```
 * See waveforms:
- $ make see
+```
+$ make see
+```
 
 # How to run synthesis, implementation and programming
 
 * For the used FPGA, ISE Design Suite (this example use version 14.7) with a valid license is needed.
 * Prepare the environment to use ISE. For example, run:
- $ . /<PATH_TO_ISE>/ISE_DS/settings64.sh
+```
+$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh
+```
 * Run synthesis, implementation and bitstream generation:
- $ make bit
+```
+$ make bit
+```
 * Run programing (if fpga_helpers is installed):
- $ make prog-fpga
+```
+$ make prog-fpga
+```
 * Or use impact:
- $ impact
+```
+$ impact
+```
 
 # How to test on hardware
 
@@ -74,17 +90,19 @@ The testbench are only stimulus to see waveforms.
 * If you see waveforms, clock of 250 MHz is not in phase.
 * If you test in hardware, GPIO LED 4, which represent clock 250 MHz, blink wrong.
 * Why? Let me explain seeing some interesting parameters inside mmcm.vhd, when MMCM_ADV is instantiated:
-  ...
-  DIVCLK_DIVIDE        => 1,
-  CLKFBOUT_MULT_F      => 6.000,
-  CLKOUT0_DIVIDE_F     => 24.000,
-  CLKOUT1_DIVIDE       => 12,
-  CLKOUT2_DIVIDE       => 8,
-  CLKOUT3_DIVIDE       => 6,
-  CLKOUT4_DIVIDE       => 5,
-  CLKOUT5_DIVIDE       => 4,
-  CLKIN1_PERIOD        => 5.0,
-  ...
+```
+...
+DIVCLK_DIVIDE        => 1,
+CLKFBOUT_MULT_F      => 6.000,
+CLKOUT0_DIVIDE_F     => 24.000,
+CLKOUT1_DIVIDE       => 12,
+CLKOUT2_DIVIDE       => 8,
+CLKOUT3_DIVIDE       => 6,
+CLKOUT4_DIVIDE       => 5,
+CLKOUT5_DIVIDE       => 4,
+CLKIN1_PERIOD        => 5.0,
+...
+```
   * The input clock (200 MHz) has a period of 5 ns. This is indicated with CLKIN1_PERIOD.
   * The input clock is multiplied by CLKFBOUT_MULT_F (6.0) and divided by DIVCLK_DIVIDE (1): 200 * 6 = 1200
   * The output clocks are obtained by dividing:

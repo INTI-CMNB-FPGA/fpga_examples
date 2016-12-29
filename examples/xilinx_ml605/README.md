@@ -73,14 +73,14 @@ DIP Switch S2:
 
 To program/boot from (when memories):
 * FPGA:
-  * S2[5:3] (M2, M1, M0) = 101
+  * S2.5..3 (M2, M1, M0) = 101
 * System ACE:
   * CompactFlash inserted
   * S1.4 = ON
-  * S2.1 = OFF, S2.2 = ON, S2[5:3] = 101, S2.6 = OFF
+  * S2.1 = OFF, S2.2 = ON, S2.5..3 = 101, S2.6 = OFF
 * BPI:
   * S1.4 = OFF
-  * S2.1 = OFF, S2.2 = ON, S2[5:3] = 010, S2.6 = ON/OFF
+  * S2.1 = OFF, S2.2 = ON, S2.5..3 = 010, S2.6 = ON/OFF
 * Platform Flash XL:
   * S1.4 = OFF
-  * S2.1 = ON, S2.2 = OFF, S2[5:3] = 110, S2.6 = don't care
+  * S2.1 = ON, S2.2 = OFF, S2.5..3 = 110, S2.6 = don't care
