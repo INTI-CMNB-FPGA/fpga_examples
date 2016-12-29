@@ -1,0 +1,17 @@
+NET "clk_i"                LOC = "U23";
+NET "clk_p_i"              LOC = "J9";
+NET "clk_n_i"              LOC = "H9";
+NET "rst_i"                LOC = "H10";
+NET "leds_o[0]"            LOC = "AP24";
+NET "leds_o[1]"            LOC = "AD21";
+NET "leds_o[2]"            LOC = "AE21";
+NET "leds_o[3]"            LOC = "AH28";
+NET "leds_o[4]"            LOC = "AH27";
+NET "leds_o[5]"            LOC = "AC22";
+NET "leds_o[6]"            LOC = "AC24";
+NET "leds_o[7]"            LOC = "AE22";
+NET "leds_o[8]"            LOC = "AE23";
+NET "leds_o[9]"            LOC = "AB23";
+NET "leds_o[10]"           LOC = "AG23";
+NET "leds_o[11]"           LOC = "AE24";
+NET "leds_o[12]"           LOC = "AD24";
