@@ -36,25 +36,41 @@ The testbench are only stimulus to see waveforms.
 
 * This design needs ISE Design Suite with support and a valid license for Virtex 6 LXT 240.
 * Prepare the environment to use ISE Isim. For example, run:
-    $ . /PATH_TO_ISE/ISE_DS/settings64.sh
+```
+$ . /PATH_TO_ISE/ISE_DS/settings64.sh
+```
 * Enter to testbench directory
-    $ cd testbench
-* Compiling
-    $ make
+```
+$ cd testbench
+```
+* Compile
+```
+$ make
+```
 * See waveforms:
-    $ make see
+```
+$ make see
+```
 
 # How to run synthesis, implementation and programming
 
 * This design needs ISE Design Suite with support and a valid license for Virtex 6 LXT 240.
 * Prepare the environment to use ISE. For example, run:
-    $ . /PATH_TO_ISE/ISE_DS/settings64.sh
+```
+$ . /PATH_TO_ISE/ISE_DS/settings64.sh
+```
 * Prepare resources (skip this step if already generated):
-    $ ./prepare.sh
+```
+$ ./prepare.sh
+```
 * Run synthesis, implementation and bitstream generation:
-    $ make bit
+```
+$ make bit
+```
 * Use impact to transfer or, if fpga_helpers is installed, run:
-    $ make prog-fpga
+```
+$ make prog-fpga
+```
 
 # How to test on hardware
 
