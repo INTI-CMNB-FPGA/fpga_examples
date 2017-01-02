@@ -8,7 +8,7 @@
 
 * Virtex-6 FPGA GTX Transceivers User Guide (UG366)
 
-# How to obtain resources
+# How resources were obtained
 
 Run Coregen (example with ISE 14.7) and:
 * Generate a New Project for Virtex6, xc6vlx240t, ff1156, -1. Design entry: VHDL.
@@ -30,26 +30,36 @@ Virtex-6 FPGA GTX Transceiver Wizard:
     * TX Clock Source: use rx pll
     * RX Clock Source: GREFCLK (in a real app, a REFCLKx must be used)
 * Page3:
-  * Uncheck: RXCOMMADET
+  * Uncheck RXCOMMADET
   * Align to... Even Byte Boundaries
-  * Check: RXBYTEISALIGNED
+  * Check RXBYTEISALIGNED
 * Page4:
   * Main driver differential swing -> "0000"
   * Wideband/Highpass Ratio -> "000"
-  * Uncheck: Synchronous Application
+  * Uncheck Synchronous Application
 * Page4, 5, 6 y 7:
   * No changes.
 * Generate
 
-It generates several files and a directory called v6 (the selected component name).
-* I only use v6_gtx.vhd from root directory.
-* It was moved to resources.
-* v6/example_design/v6_top.ucf was useful to see how to specify the used gtx.
+An additiona MMCM is needed to obtain 150 MHz from 200 MHz. In Coregen:
+* Navigate: FPGA Features and Design -> Clocking.
+* Run "Clocking Wizard".
 
-Additionaly, a MMCM was needed to obtain 150 MHz from 200 MHz.
-* A wrapper was put in resources.
-* See mmcm example for this same board to know how to obtain one using coregen.
-* See comments about MMCM at the bottom of this document.
+Clocking Wizard:
+* Page 1:
+  * Change component name to mmcm.
+  * Change input freq value to *200.00* and source to *Differential clock capable pin*.
+* Page 2:
+  * CLK_OUT1 = 150.
+* Page 3: no changes (provides RESET and LOCKED ports)
+* Page 4: Allow override mode
+  * Change CLKFBOUT_MULT_T from 39.000 to 6.000.
+  * Change DIVCLK_DIVIDE from 8 to 2.
+  * Change CLKOUT0_DIVIDE_F from 6.500 to 4.000.
+  * Note: changes to avoid a division with decimal part different to zero (simulation missmatch).
+* Page 5: no changes to use the default ports names.
+* Page 6: nothing to do (summary).
+* Generate
 
 # How to use resources
 
@@ -63,70 +73,34 @@ Additionaly, a MMCM was needed to obtain 150 MHz from 200 MHz.
 
 The testbench are only stimulus to see waveforms.
 
-* For the used FPGA, ISE Design Suite (this example use version 14.7) with a valid license is needed.
+* This design needs ISE Design Suite with support and a valid license for Virtex 6 LXT 240.
 * Prepare the environment to use ISE Isim. For example, run:
-```
-$ . /PATH_TO_ISE/ISE_DS/settings64.sh
-```
+    $ . /PATH_TO_ISE/ISE_DS/settings64.sh
 * Enter to testbench directory
-```
-$ cd testbench
-```
+    $ cd testbench
 * Compiling
-```
-$ make
-```
+    $ make
 * See waveforms:
-```
-$ make see
-```
+    $ make see
 
 See how when rxbyteisaligned is '1', the values in txdata and txcharisk arrive to rxdata and rxcharisk.
 
 # How to run synthesis, implementation and programming
 
-* For the used FPGA, ISE Design Suite (this example use version 14.7) with a valid license is needed.
+* This design needs ISE Design Suite with support and a valid license for Virtex 6 LXT 240.
 * Prepare the environment to use ISE. For example, run:
-```
-$ . /PATH_TO_ISE/ISE_DS/settings64.sh
-```
+    $ . /PATH_TO_ISE/ISE_DS/settings64.sh
+* Prepare resources (skip this step if already generated):
+    $ ./prepare.sh
 * Run synthesis, implementation and bitstream generation:
-```
-$ make bit
-```
-* Run programing (if fpga_helpers is installed):
-```
-$ make prog-fpga
-```
-* Or use impact:
-```
-$ impact
-```
+    $ make bit
+* Use impact to transfer or, if fpga_helpers is installed, run:
+    $ make prog-fpga
 
 # How to test on hardware
 
 * Change SW1.1..8 to see how the corresponding GPIO LED change its state.
 
 # Comments
-
-
-* When generated, resource/mmcm.vhd had the values:
-```
-...
-DIVCLK_DIVIDE        => 8,
-CLKFBOUT_MULT_F      => 39.000,
-CLKOUT0_DIVIDE_F     => 6.500,
-...
-```
-* Clock out must had a period of 6.67 ns (150 MHz). However, in simulation, it had 7.18 ns.
-* I calculated and changed the values on resource/mmcm.vhd to (avoiding decimal values):
-```
-...
-DIVCLK_DIVIDE        => 2,
-CLKFBOUT_MULT_F      => 6.0,
-CLKOUT0_DIVIDE_F     => 4.0,
-...
-```
-* The period is the corrected after that.
 
 * In ml605.ucf there are examples of clock constraints. It is not absolutely needed in this example, but good practice for a real app.

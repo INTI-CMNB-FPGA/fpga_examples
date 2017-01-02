@@ -1,3 +1,5 @@
+#!/usr/bin/make
+
 all: run
 
 run top_tb:

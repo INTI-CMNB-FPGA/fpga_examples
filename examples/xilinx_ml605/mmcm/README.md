@@ -27,7 +27,7 @@ Clocking Wizard:
 
 # How to use resources
 
-* The file mmcm.vhd is a wrapper for MMCM_ADV primitive, plus one IBUFGDS primitive and several BUFG primitives (CLK_OUTx ports).
+* The file mmcm.vhd is a wrapper for *MMCM_ADV* primitive, plus one *IBUFGDS* primitive and several *BUFG* primitives (CLK_OUTx ports).
 * The component mmcm is instantiated in top.vhdl.
 
 # How to simulate
@@ -36,27 +36,25 @@ The testbench are only stimulus to see waveforms.
 
 * This design needs ISE Design Suite with support and a valid license for Virtex 6 LXT 240.
 * Prepare the environment to use ISE Isim. For example, run:
-```$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh```
+    $ . /PATH_TO_ISE/ISE_DS/settings64.sh
 * Enter to testbench directory
-```$ cd testbench```
+    $ cd testbench
 * Compiling
-```$ make```
+    $ make
 * See waveforms:
-```$ make see```
+    $ make see
 
 # How to run synthesis, implementation and programming
 
 * This design needs ISE Design Suite with support and a valid license for Virtex 6 LXT 240.
 * Prepare the environment to use ISE. For example, run:
-```$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh```
-* Prepare resources:
-```$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh```
+    $ . /PATH_TO_ISE/ISE_DS/settings64.sh
+* Prepare resources (skip this step if already generated):
+    $ ./prepare.sh
 * Run synthesis, implementation and bitstream generation:
-```$ make bit```
-* Run programing (if fpga_helpers is installed):
-```$ make prog-fpga```
-* Or use impact:
-```$ impact```
+    $ make bit
+* Use impact to transfer or, if fpga_helpers is installed, run:
+    $ make prog-fpga
 
 # How to test on hardware
 
