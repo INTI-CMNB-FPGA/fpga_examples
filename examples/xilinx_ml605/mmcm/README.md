@@ -6,7 +6,7 @@ This example shows how to synthetize clocks using the *Mixed-Mode Clock Manager*
 
 * Virtex-6 FPGA Clocking Resources User Guide (UG362)
 
-# How to obtain resources
+# How resources were obtained
 
 Run Coregen (example with ISE 14.7) and:
 * Generate a New Project for Virtex6, xc6vlx240t, ff1156, -1. Design entry: VHDL.
@@ -25,55 +25,38 @@ Clocking Wizard:
 * Page 7: nothing to do (summary).
 * Generate
 
-It generates several files and a directory called mmcm (the selected component name). I only use
-mmcm.vhd on root directory. It was moved to resources.
-
 # How to use resources
 
 * The file mmcm.vhd is a wrapper for MMCM_ADV primitive, plus one IBUFGDS primitive and several BUFG primitives (CLK_OUTx ports).
-* Te component mmcm must be instantiated in top.vhdl.
+* The component mmcm is instantiated in top.vhdl.
 
 # How to simulate
 
 The testbench are only stimulus to see waveforms.
 
-* For the used FPGA, ISE Design Suite (this example use version 14.7) with a valid license is needed.
+* This design needs ISE Design Suite with support and a valid license for Virtex 6 LXT 240.
 * Prepare the environment to use ISE Isim. For example, run:
-```
-$ . /PATH_TO_ISE/ISE_DS/settings64.sh
-```
+```$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh```
 * Enter to testbench directory
-```
-$ cd testbench
-```
+```$ cd testbench```
 * Compiling
-```
-$ make
-```
+```$ make```
 * See waveforms:
-```
-$ make see
-```
+```$ make see```
 
 # How to run synthesis, implementation and programming
 
-* For the used FPGA, ISE Design Suite (this example use version 14.7) with a valid license is needed.
+* This design needs ISE Design Suite with support and a valid license for Virtex 6 LXT 240.
 * Prepare the environment to use ISE. For example, run:
-```
-$ . /PATH_TO_ISE/ISE_DS/settings64.sh
-```
+```$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh```
+* Prepare resources:
+```$ . /*PATH_TO_ISE*/ISE_DS/settings64.sh```
 * Run synthesis, implementation and bitstream generation:
-```
-$ make bit
-```
+```$ make bit```
 * Run programing (if fpga_helpers is installed):
-```
-$ make prog-fpga
-```
+```$ make prog-fpga```
 * Or use impact:
-```
-$ impact
-```
+```$ impact```
 
 # How to test on hardware
 
