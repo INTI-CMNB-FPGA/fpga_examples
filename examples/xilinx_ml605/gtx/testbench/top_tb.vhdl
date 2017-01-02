@@ -40,6 +40,7 @@ begin
       sma_rx_n_i => '0',
       sma_tx_p_o => open,
       sma_tx_n_o => open,
+      pbc_i      => '0',
       dips_i     => "11000011",
       leds_o     => open
    );

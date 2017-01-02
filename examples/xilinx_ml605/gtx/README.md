@@ -3,6 +3,7 @@
 * Simple example about how to use a GigaBit Transciver (GTX) on ml605.
 * It uses 8b10b and 16 data bits.
 * The DIP switches drives the GPIO LEDS trougth a gtx configured with a loopback.
+* GTX loopback is used, unless push-button GPIO_SW_C is holded.
 
 # Useful documents
 
@@ -41,7 +42,7 @@ Virtex-6 FPGA GTX Transceiver Wizard:
   * No changes.
 * Generate
 
-An additiona MMCM is needed to obtain 150 MHz from 200 MHz. In Coregen:
+An additional MMCM is needed to obtain 150 MHz from 200 MHz. In Coregen:
 * Navigate: FPGA Features and Design -> Clocking.
 * Run "Clocking Wizard".
 
@@ -116,6 +117,7 @@ $ make prog-fpga
 # How to test on hardware
 
 * Change SW1.1..8 to see how the corresponding GPIO LED change its state.
+* If two SMA cables are used to connect TX_P_O with RX_P_I and TX_N_O with RX_N_I, hold GPIO_SW_C to avoid internal loopback.
 
 # Comments
 

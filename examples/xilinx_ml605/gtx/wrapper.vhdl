@@ -25,6 +25,7 @@ port (
    txp_o     : out std_logic;
    txn_o     : out std_logic;
    --
+   loopback_i: in  std_logic;
    rx_data_o : out std_logic_vector(15 downto 0);
    rx_isk_o  : out std_logic_vector(1 downto 0);
    tx_data_i : in  std_logic_vector(15 downto 0);
@@ -57,7 +58,7 @@ begin
       GTX_POWER_SAVE                  => "0000110100"
    )
    port map (
-      LOOPBACK_IN                     => "010", -- Near-End PMA Loopback
+      LOOPBACK_IN                     => '0' & loopback_i & '0', -- Near-End PMA Loopback
       -- RX 8b10b Decoder
       RXCHARISK_OUT                   => rx_isk_o,
       RXDISPERR_OUT                   => open,

@@ -21,6 +21,8 @@ NET "sma_rx_p_i"           LOC = "D5";
 NET "sma_tx_n_o"           LOC = "B2";
 NET "sma_tx_p_o"           LOC = "B1";
 
+NET "pbc_i"                LOC = "G26";
+
 NET "dips_i[0]"            LOC = "D22";
 NET "dips_i[1]"            LOC = "C22";
 NET "dips_i[2]"            LOC = "L21";

@@ -23,6 +23,7 @@ port (
    sma_rx_n_i   : in  std_logic;
    sma_tx_p_o   : out std_logic;
    sma_tx_n_o   : out std_logic;
+   pbc_i        : in  std_logic;
    dips_i       :  in std_logic_vector(7 downto 0);
    leds_o       : out std_logic_vector(7 downto 0)
 );
@@ -32,6 +33,7 @@ architecture RTL of top is
 
    signal reset, sysclk            : std_logic;
    signal locked, ready            : std_logic;
+   signal loopback                 : std_logic;
    -- GBT data
    signal rx_data, tx_data         : std_logic_vector(15 downto 0);
    signal rx_isk,  tx_isk          : std_logic_vector(1 downto 0);
@@ -47,12 +49,8 @@ begin
       LOCKED    => locked
    );
 
---      MULT                            => 6.0,-- 39.0,
---      DIVIDE                          => 2,  -- 8,
---      CLK_PERIOD                      => 5.0,
---      OUT0_DIVIDE                     => 4.0,-- 6.5,
-
-   reset  <= not locked;
+   reset    <= not locked;
+   loopback <= not pbc_i;
 
    gbt_i: entity work.Wrapper
    port map (
@@ -65,6 +63,7 @@ begin
       txp_o     => sma_tx_p_o,
       txn_o     => sma_tx_n_o,
       --
+      loopback_i=> loopback,
       rx_data_o => rx_data,
       rx_isk_o  => rx_isk,
       tx_data_i => tx_data,

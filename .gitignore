@@ -1,2 +1,24 @@
 ignore
+
+# Generated Vendor files
 examples/*/*/resources
+
+# ISE
+examples/*/*/Top*
+examples/*/*/_ngo
+examples/*/*/_xmsgs
+examples/*/*/xst
+examples/*/*/xlnx_auto_0_xdb
+examples/*/*/*.log
+examples/*/*/ise*
+examples/*/*/*.html
+examples/*/*/*.xml
+
+# Isim
+examples/*/*/testbench/*.log
+examples/*/*/testbench/*.xmsgs
+examples/*/*/testbench/*.cmd
+examples/*/*/testbench/*.wdb
+examples/*/*/testbench/isim
+examples/*/*/testbench/top_tb
+
