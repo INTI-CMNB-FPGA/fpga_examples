@@ -37,7 +37,7 @@ end entity Wrapper;
 architecture Structural of Wrapper is
    signal refclk                      : std_logic_vector(1 downto 0);
    signal outclk                      : std_logic;
-   signal rx_plldet                   : std_logic;
+   signal rx_plllkdet                 : std_logic;
    signal usrclk2, usrrst             : std_logic;
    signal rx_ready, tx_ready          : std_logic;
    signal loopback                    : std_logic_vector(2 downto 0);
@@ -50,7 +50,7 @@ begin
    );
 
    refclk <= '0' & clk_i;
-   usrrst <= not rx_plldet;
+   --usrrst <= not rx_plllkdet;
 
    loopback <= '0' & loopback_i & '0';
 
@@ -80,7 +80,7 @@ begin
       GTXRXRESET_IN                   => rst_i,
       MGTREFCLKRX_IN                  => refclk,
       PLLRXRESET_IN                   => '0',
-      RXPLLLKDET_OUT                  => rx_plldet,
+      RXPLLLKDET_OUT                  => rx_plllkdet,
       RXRESETDONE_OUT                 => rx_ready,
       -- TX 8b10b Encoder Control Ports
       TXCHARISK_IN                    => tx_isk_i,
@@ -102,6 +102,6 @@ begin
    );
 
    clk_o   <= usrclk2;
-   ready_o <= rx_ready and tx_ready;
+   ready_o <= rx_ready and tx_ready and rx_plllkdet;
 
 end architecture Structural;

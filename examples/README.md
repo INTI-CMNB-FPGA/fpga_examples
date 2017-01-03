@@ -25,5 +25,5 @@
   * ddr3:
   * gpios: using DIP switches and push-buttons to turn ON LEDs.
   * gtx:   using a versy simple gtx wrapper with 2 data bytes and 8b10b codification to change LEDs state with the DIP switches.
-  * gtx2:
+  * gtx2:  using TransLoop from hdl_utils to test a gtx with 2 data bytes and 8b10b codification.
   * mmcm:  using Mixed-Mode Clock Manager to blink LEDs.
