@@ -1,5 +1,5 @@
 --
--- GTX on ml605
+-- Top level of gtx2 example
 --
 -- Author:
 -- * Rodrigo A. Melo, rmelo@inti.gob.ar

@@ -1,9 +1,8 @@
 # Description
 
-* Simple example about how to use a GigaBit Transciver (GTX) on ml605.
-* It uses 8b10b and 16 data bits.
-* The DIP switches drives the GPIO LEDS trougth a gtx configured with a loopback.
-* GTX loopback is used, unless push-button GPIO_SW_C is holded.
+Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) to change LEDs state with DIP switches.
+* Byte 0 is the K28.5 character.
+* Byte 1 is the state of DIP switches.
 
 # Useful documents
 
@@ -32,7 +31,7 @@ Virtex-6 FPGA GTX Transceiver Wizard:
     * RX Clock Source: GREFCLK (in a real app, a REFCLKx must be used)
 * Page3:
   * Uncheck RXCOMMADET
-  * Align to... Even Byte Boundaries
+  * Align to... Even Byte Boundaries (to ensure K character in byte 0 and value in byte 1)
   * Check RXBYTEISALIGNED
 * Page4:
   * Main driver differential swing -> "0000"
@@ -65,9 +64,8 @@ Clocking Wizard:
 # How to use resources
 
 * See wrapper.vhdl.
-* txoutclk is used to drive txusrclk2 and rxusrclk2 trough IBUFG.
-* If 4 byte of data are used, two clocks are derived from txoutclk (using a MMCM).
-* The useful ports are tx_data, tx_isk, rx_data, rx_isk and ready.
+* txoutclk is used to drive usrclk trough IBUFG.
+* The data exchange ports are tx_data, tx_isk, rx_data, rx_isk and ready.
 * When a byte of data is a K character, the corresponding isk bit must be 1.
 
 # How to simulate
@@ -116,9 +114,5 @@ $ make prog-fpga
 
 # How to test on hardware
 
-* Change SW1.1..8 to see how the corresponding GPIO LED change its state.
+* Change DIP switches SW1.1..8 to see how the corresponding GPIO LED change its state.
 * If two SMA cables are used to connect TX_P_O with RX_P_I and TX_N_O with RX_N_I, hold GPIO_SW_C to avoid internal loopback.
-
-# Comments
-
-* In ml605.ucf there are examples of clock constraints. It is not absolutely needed in this example, but good practice for a real app.

@@ -1,5 +1,5 @@
 --
--- Minimal GTX (Virtex 6) Transceiver (with 8b10b and 16 data bits).
+-- Wrapper of gtx2 example
 --
 -- Author:
 -- * Rodrigo A. Melo, rmelo@inti.gob.ar
@@ -38,7 +38,7 @@ architecture Structural of Wrapper is
    signal refclk                      : std_logic_vector(1 downto 0);
    signal outclk                      : std_logic;
    signal rx_plllkdet                 : std_logic;
-   signal usrclk2, usrrst             : std_logic;
+   signal usrclk2                     : std_logic;
    signal rx_ready, tx_ready          : std_logic;
    signal loopback                    : std_logic_vector(2 downto 0);
 begin
@@ -50,8 +50,6 @@ begin
    );
 
    refclk <= '0' & clk_i;
-   --usrrst <= not rx_plllkdet;
-
    loopback <= '0' & loopback_i & '0';
 
    gtx_v6_i : entity work.v6_gtx
