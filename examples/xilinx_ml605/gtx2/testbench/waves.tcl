@@ -22,21 +22,17 @@ wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXDISPERR_OUT
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXNOTINTABLE_OUT
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXBYTEISALIGNED_OUT
 divider add "APP TX"
-wave add /TOP_TB/dut/loop_i/tx_state
-wave add /TOP_TB/dut/loop_i/tx_data_o -radix hex
-wave add /TOP_TB/dut/loop_i/tx_isk_o
-wave add /TOP_TB/dut/loop_i/tx_ready_i
-wave add /TOP_TB/dut/loop_i/tx_cnt -radix unsigned
+wave add /TOP_TB/dut/tx_data -radix hex
+wave add /TOP_TB/dut/tx_isk
+wave add /TOP_TB/dut/ready
 divider add "APP RX"
-wave add /TOP_TB/dut/loop_i/rx_state
-wave add /TOP_TB/dut/loop_i/rx_data_i -radix hex
-wave add /TOP_TB/dut/loop_i/rx_isk_i
-wave add /TOP_TB/dut/loop_i/rx_data_bound -radix hex
-wave add /TOP_TB/dut/loop_i/rx_isk_bound
-wave add /TOP_TB/dut/loop_i/rx_errors_o
-wave add /TOP_TB/dut/loop_i/rx_finish_o
+wave add /TOP_TB/dut/rx_data -radix hex
+wave add /TOP_TB/dut/rx_isk
+wave add /TOP_TB/dut/rx_data_bound -radix hex
+wave add /TOP_TB/dut/rx_isk_bound
+wave add /TOP_TB/dut/errors
+wave add /TOP_TB/dut/finish
 wave add /TOP_TB/dut/loop_i/rx_cycles_o -radix unsigned
-wave add /TOP_TB/dut/loop_i/rx_cnt -radix unsigned
 wave add /TOP_TB/leds
 
 run 100 us

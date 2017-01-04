@@ -12,6 +12,7 @@ library IEEE;
 use IEEE.std_logic_1164.all;
 library UTILS;
 use UTILS.verif.all;
+use UTILS.sync.all;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 
@@ -32,15 +33,15 @@ end entity Top;
 
 architecture RTL of top is
 
-   signal reset, sysclk, clk       : std_logic;
-   signal locked, ready            : std_logic;
-   signal loopback                 : std_logic;
+   signal reset, sysclk, clk              : std_logic;
+   signal locked, ready                   : std_logic;
+   signal loopback                        : std_logic;
    -- GBT data
-   signal rx_data, tx_data         : std_logic_vector(15 downto 0);
-   signal rx_isk,  tx_isk          : std_logic_vector(1 downto 0);
+   signal rx_data, rx_data_bound, tx_data : std_logic_vector(15 downto 0);
+   signal rx_isk,  rx_isk_bound,  tx_isk  : std_logic_vector(1 downto 0);
    --
-   signal finish                   : std_logic;
-   signal errors                   : std_logic_vector(4 downto 0);
+   signal finish                          : std_logic;
+   signal errors                          : std_logic_vector(4 downto 0);
 
 begin
 
@@ -75,6 +76,17 @@ begin
       ready_o   => ready
    );
 
+   bound_i: Boundary
+   generic map(BYTES => 2)
+   port map(
+      clk_i     => clk,
+      pattern_i => (others => '1'),
+      comma_i   => rx_isk,
+      data_i    => rx_data,
+      comma_o   => rx_isk_bound,
+      data_o    => rx_data_bound
+   );
+
    loop_i: TransLoop
    generic map(
       TSIZE  => 2048,
@@ -92,8 +104,8 @@ begin
       -- RX side
       rx_clk_i     => clk,
       rx_rst_i     => reset,
-      rx_data_i    => rx_data,
-      rx_isk_i     => rx_isk,
+      rx_data_i    => rx_data_bound,
+      rx_isk_i     => rx_isk_bound,
       rx_errors_o  => errors,
       rx_finish_o  => finish,
       rx_cycles_o  => open

@@ -26,7 +26,7 @@ Developed HDL files such as wrapper.vhdl, top.vhdl and top_tb.vhdl must have a h
 --
 -- Name
 --
--- Description
+-- [Optional] Description
 --
 -- Author(s):
 -- * Name of the author(s) of the file
