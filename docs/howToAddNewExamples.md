@@ -10,7 +10,7 @@
    * Note: use 2, 3 and so on when more than one example.
 4. [optional] Obtain additional files provided by the vendor.
    * Try to avoid include vendor's files on the respository. Try to generate them.
-   * Add a *prepare.sh* shell script to run needed actions.
+   * Add a *prepare* target to the Makefile to run needed actions.
    * Note: resources directory is in *.gitignore*. Use `git add -f resources/WHATEVER` when needed.
 5. Create the top level of you example (top.vhdl) and a wrapper (wrapper.vhdl) [optional] when needed.
 6. Add a constraint file (*board.ext*).

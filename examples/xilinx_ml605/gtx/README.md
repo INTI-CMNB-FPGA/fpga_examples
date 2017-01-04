@@ -103,7 +103,7 @@ $ . /PATH_TO_ISE/ISE_DS/settings64.sh
 ```
 * Prepare resources (skip this step if already generated):
 ```
-$ ./prepare.sh
+$ make prepare
 ```
 * Run synthesis, implementation and bitstream generation:
 ```
