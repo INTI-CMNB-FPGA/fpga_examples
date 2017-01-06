@@ -53,7 +53,7 @@ Clocking Wizard:
   * CLK_OUT1 = 150.
 * Page 3: no changes (provides RESET and LOCKED ports)
 * Page 4: Allow override mode
-  * Change CLKFBOUT_MULT_T from 39.000 to 6.000.
+  * Change CLKFBOUT_MULT_F from 39.000 to 6.000.
   * Change DIVCLK_DIVIDE from 8 to 2.
   * Change CLKOUT0_DIVIDE_F from 6.500 to 4.000.
   * Note: changes to avoid a division with decimal part different to zero (simulation missmatch).

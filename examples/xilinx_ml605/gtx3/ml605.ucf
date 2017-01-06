@@ -1,0 +1,38 @@
+# Clock Constraints
+
+NET "sysclk" TNM_NET = "sysclk";
+TIMESPEC "TS_sysclk" = PERIOD "sysclk" 6.67;
+
+# User Clock Constraints
+
+NET "gbt_i/usrclk" TNM_NET = "usrclk";
+TIMESPEC "TS_usrclk" = PERIOD "usrclk" 6.67;
+
+NET "clk_o" TNM_NET = "clk_o";
+TIMESPEC "TS_clk_o" = PERIOD "clk_o" 13.333;
+
+# mgt wrapper constraints
+INST gbt_i/gtx_v6_i/gtxe1_i LOC=GTXE1_X0Y18;
+
+# locs for top level ports
+
+NET "rst_i"                LOC = "H10";
+
+NET "clk_n_i"              LOC = "H9";
+NET "clk_p_i"              LOC = "J9";
+
+NET "sma_rx_n_i"           LOC = "D6";
+NET "sma_rx_p_i"           LOC = "D5";
+NET "sma_tx_n_o"           LOC = "B2";
+NET "sma_tx_p_o"           LOC = "B1";
+
+NET "pbc_i"                LOC = "G26";
+
+NET "leds_o[0]"            LOC = "AC22";
+NET "leds_o[1]"            LOC = "AC24";
+NET "leds_o[2]"            LOC = "AE22";
+NET "leds_o[3]"            LOC = "AE23";
+NET "leds_o[4]"            LOC = "AB23";
+NET "leds_o[5]"            LOC = "AG23";
+NET "leds_o[6]"            LOC = "AE24";
+NET "leds_o[7]"            LOC = "AD24";

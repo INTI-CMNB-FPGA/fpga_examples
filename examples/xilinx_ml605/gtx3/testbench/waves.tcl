@@ -16,7 +16,7 @@ wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXENMCOMMAALIGN_IN
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXENPCOMMAALIGN_IN
 divider add "RX Data Path interface"
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXDATA_OUT
-#wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXUSRCLK_IN
+wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXUSRCLK_IN
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXUSRCLK2_IN
 divider add "RX Driver"
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXN_IN
@@ -32,7 +32,7 @@ wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXCHARISK_IN
 divider add "TX Data Path interface"
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXDATA_IN
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXOUTCLK_OUT
-#wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXUSRCLK_IN
+wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXUSRCLK_IN
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXUSRCLK2_IN
 divider add "TX Driver"
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXN_OUT

@@ -1,5 +1,5 @@
 --
--- Top level of gtx2 example
+-- Top level of gtx3 example
 --
 -- Author:
 -- * Rodrigo A. Melo, rmelo@inti.gob.ar
@@ -33,7 +33,7 @@ end entity Top;
 
 architecture RTL of top is
 
-   constant BYTES                         : positive:=2;
+   constant BYTES                         : positive:=4;
 
    signal sysclk, clk                     : std_logic;
    signal rst_gtx, rst_loop               : std_logic;
