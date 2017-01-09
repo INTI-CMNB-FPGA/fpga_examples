@@ -1,5 +1,10 @@
 # FPGA examples
 
+Copyright (c) 2016-2017 Authors and INTI
+Distributed under the BSD 3-Clause License
+
+![INTI CMNB Logo](/images/logo.png)
+
 This project is about FPGA hard blocks and board features. Examples ready to use and verified in hardware. The prefered HDL language is VHDL.
 
 ## Project Organization

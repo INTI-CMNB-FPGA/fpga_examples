@@ -2,10 +2,10 @@
 -- Wrapper of gtx2 example
 --
 -- Author:
--- * Rodrigo A. Melo, rmelo@inti.gob.ar
+-- * Rodrigo A. Melo
 --
--- Copyright (c) 2016 INTI
--- Copyright (c) 2016 Rodrigo A. Melo
+-- Copyright (c) 2016 Authors and INTI
+-- Distributed under the BSD 3-Clause License
 --
 
 library IEEE;

@@ -2,10 +2,10 @@
 -- Top level of gtx2 example
 --
 -- Author:
--- * Rodrigo A. Melo, rmelo@inti.gob.ar
+-- * Rodrigo A. Melo
 --
--- Copyright (c) 2017 INTI
--- Copyright (c) 2017 Rodrigo A. Melo
+-- Copyright (c) 2017 Authors and INTI
+-- Distributed under the BSD 3-Clause License
 --
 
 library IEEE;
