@@ -39,7 +39,7 @@ architecture RTL of top is
 
 begin
 
-   mmcm_inst: entity work.mmcm
+   mmcm_inst: entity work.mmcm200to150
    port map (
       CLK_IN1_P => clk_p_i,
       CLK_IN1_N => clk_n_i,

@@ -51,7 +51,7 @@ begin
    refclk <= '0' & clk_i;
    loopback <= '0' & loopback_i & '0';
 
-   gtx_v6_i : entity work.v6_gtx
+   gtx_v6_i : entity work.gbt2_gtx
    generic map (
       GTX_SIM_GTXRESET_SPEEDUP        => 1,
       GTX_TX_CLK_SOURCE               => "RXPLL",

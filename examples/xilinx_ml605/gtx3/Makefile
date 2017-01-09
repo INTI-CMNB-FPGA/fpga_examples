@@ -164,12 +164,12 @@ endif
 COREGEN := $(shell command -v coregen 2> /dev/null)
 prepare:
 ifneq ($(COREGEN),)
-	coregen -p resources/coregen.cgp -b resources/v6.xco
-	git checkout resources/v6.xco
-	coregen -p resources/coregen.cgp -b resources/mmcm_gtx.xco
-	git checkout resources/mmcm_gtx.xco
-	coregen -p resources/coregen.cgp -b resources/mmcm.xco
-	git checkout resources/mmcm.xco
+	mkdir -p temp
+	cp ../resources/coregen.cgp ../resources/gbt3.xco temp
+	cp ../resources/mmcm200to150.xco ../resources/mmcm150and75.xco temp
+	coregen -p temp/coregen.cgp -b temp/gbt3.xco
+	coregen -p temp/coregen.cgp -b temp/mmcm200to150.xco
+	coregen -p temp/coregen.cgp -b temp/mmcm150and75.xco
 	rm coregen.log
 else
 	@echo "ERROR: coregen not found."

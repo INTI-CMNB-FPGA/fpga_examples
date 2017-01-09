@@ -1,5 +1,5 @@
-vhdl work    ../resources/mmcm.vhd
-vhdl work    ../resources/v6_gtx.vhd
+vhdl work    ../temp/mmcm200to150.vhd
+vhdl work    ../temp/gbt2_gtx.vhd
 vhdl work    ../wrapper.vhdl
 vhdl fpgalib ../../../../fpga_lib/vhdl/verif/verif_pkg.vhdl
 vhdl fpgalib ../../../../fpga_lib/vhdl/verif/loopcheck.vhdl

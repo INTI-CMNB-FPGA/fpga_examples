@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Jan  3 18:03:16 2017
+# Date: Mon Jan  9 18:13:13 2017
 #
 ##############################################################
 #
@@ -117,11 +117,11 @@ CSET clk_cor_precedence=CC
 CSET clk_cor_repeat_wait=0
 CSET column=Left
 CSET com_burst_val=15
-CSET comma_alignment=Any_Byte_Boundary
+CSET comma_alignment=Even_Byte_Boundaries
 CSET comma_double=false
 CSET comma_mask=1111111111
 CSET comma_preset=K28.5
-CSET component_name=v6
+CSET component_name=gbt1
 CSET dec_mcomma_detect=false
 CSET dec_pcomma_detect=false
 CSET dec_valid_comma_only=false
@@ -408,4 +408,4 @@ CSET wideband_highpass_mix=000
 MISC pkg_timestamp=2011-04-08T05:24:23Z
 # END Extra information
 GENERATE
-# CRC: 92e9251e
+# CRC: 5ac2fa38

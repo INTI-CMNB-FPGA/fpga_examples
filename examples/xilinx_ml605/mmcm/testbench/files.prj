@@ -1,6 +1,6 @@
 vhdl fpgalib ../../../../fpga_lib/vhdl/verif/verif_pkg.vhdl
 vhdl fpgalib ../../../../fpga_lib/vhdl/verif/blink.vhdl
-vhdl work    ../resources/mmcm.vhd
+vhdl work    ../temp/mmcm.vhd
 vhdl work    ../top.vhdl
 vhdl fpgalib ../../../../fpga_lib/vhdl/simul/simul_pkg.vhdl
 vhdl fpgalib ../../../../fpga_lib/vhdl/simul/clock.vhdl

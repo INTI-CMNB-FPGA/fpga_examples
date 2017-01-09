@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Thu Dec 29 19:35:41 2016
+# Date: Mon Jan  9 18:22:31 2017
 #
 ##############################################################
 #
@@ -117,11 +117,11 @@ CSET clk_cor_precedence=CC
 CSET clk_cor_repeat_wait=0
 CSET column=Left
 CSET com_burst_val=15
-CSET comma_alignment=Even_Byte_Boundaries
+CSET comma_alignment=Any_Byte_Boundary
 CSET comma_double=false
 CSET comma_mask=1111111111
 CSET comma_preset=K28.5
-CSET component_name=v6
+CSET component_name=gbt3
 CSET dec_mcomma_detect=false
 CSET dec_pcomma_detect=false
 CSET dec_valid_comma_only=false
@@ -172,7 +172,7 @@ CSET refclk_ac_coupling_x0_y6=false
 CSET refclk_ac_coupling_x0_y7=false
 CSET refclk_ac_coupling_x0_y8=false
 CSET refclk_ac_coupling_x0_y9=false
-CSET rx_datapath_width=16
+CSET rx_datapath_width=32
 CSET rx_decode_seq_match=true
 CSET rx_divider=/1
 CSET rx_en_idle_hold_cdr=false
@@ -244,7 +244,7 @@ CSET trans_time_from_p2=60
 CSET trans_time_non_p2=25
 CSET trans_time_rate=FF
 CSET trans_time_to_p2=100
-CSET tx_datapath_width=16
+CSET tx_datapath_width=32
 CSET tx_divider=/1
 CSET tx_drive_mode=DIRECT
 CSET tx_en_rate_reset_buf=true
@@ -296,8 +296,8 @@ CSET txusrclk_source=TXOUTCLK
 CSET use_cb=false
 CSET use_cc=false
 CSET use_comma_detect=true
-CSET use_external_rxusrclk=false
-CSET use_external_txusrclk=false
+CSET use_external_rxusrclk=true
+CSET use_external_txusrclk=true
 CSET use_gtx_x0_y0=false
 CSET use_gtx_x0_y1=false
 CSET use_gtx_x0_y10=false
@@ -408,4 +408,4 @@ CSET wideband_highpass_mix=000
 MISC pkg_timestamp=2011-04-08T05:24:23Z
 # END Extra information
 GENERATE
-# CRC: 86bcee57
+# CRC: f759acde

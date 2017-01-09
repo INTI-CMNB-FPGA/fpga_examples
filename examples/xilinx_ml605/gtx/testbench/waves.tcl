@@ -19,9 +19,9 @@ wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXPLLLKDET_OUT
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXRESETDONE_OUT
 divider add "TX Data"
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXCHARISK_IN
-wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXDATA_IN
+wave add /TOP_TB/dut/gbt_i/gtx_v6_i/TXDATA_IN -radix hex
 divider add "RX Data"
-wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXDATA_OUT
+wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXDATA_OUT -radix hex
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXCHARISK_OUT
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXDISPERR_OUT
 wave add /TOP_TB/dut/gbt_i/gtx_v6_i/RXNOTINTABLE_OUT

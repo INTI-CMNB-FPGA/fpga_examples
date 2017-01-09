@@ -1,7 +1,7 @@
 ##############################################################
 #
 # Xilinx Core Generator version 14.7
-# Date: Tue Jan  3 14:57:03 2017
+# Date: Mon Jan  9 19:10:44 2017
 #
 ##############################################################
 #
@@ -103,7 +103,7 @@ CSET clkout7_requested_out_freq=100.000
 CSET clkout7_requested_phase=0.000
 CSET clkout7_used=false
 CSET clock_mgr_type=MANUAL
-CSET component_name=mmcm
+CSET component_name=mmcm200to150
 CSET daddr_port=DADDR
 CSET dclk_port=DCLK
 CSET dcm_clk_feedback=1X
@@ -266,4 +266,4 @@ CSET use_status=false
 MISC pkg_timestamp=2012-05-10T12:44:55Z
 # END Extra information
 GENERATE
-# CRC: b3b0ffbb
+# CRC: a82b8062

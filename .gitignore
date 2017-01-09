@@ -1,7 +1,5 @@
 ignore
-
-# Generated Vendor files
-examples/*/*/resources
+temp
 
 # ISE
 examples/*/*/Top*
