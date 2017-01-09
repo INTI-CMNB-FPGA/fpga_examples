@@ -5,14 +5,14 @@
 -- * Rodrigo A. Melo, rmelo@inti.gob.ar
 --
 -- Copyright (c) 2016 INTI
--- Copyright (c) 2016 Rodrigo A. Melo
+-- Distributed under the BSD 3-Clause License
 --
 
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-library UTILS;
-use UTILS.Simul.all;
+library FPGALIB;
+use FPGALIB.Simul.all;
 
 entity Top_tb is
 end entity Top_tb;

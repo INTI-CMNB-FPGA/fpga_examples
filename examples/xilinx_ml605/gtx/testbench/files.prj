@@ -2,6 +2,6 @@ vhdl work  ../resources/mmcm.vhd
 vhdl work  ../resources/v6_gtx.vhd
 vhdl work  ../wrapper.vhdl
 vhdl work  ../top.vhdl
-vhdl utils ../../../../hdl_utils/vhdl/simul/simul_pkg.vhdl
-vhdl utils ../../../../hdl_utils/vhdl/simul/clock.vhdl
+vhdl fpgalib ../../../../fpga_lib/vhdl/simul/simul_pkg.vhdl
+vhdl fpgalib ../../../../fpga_lib/vhdl/simul/clock.vhdl
 vhdl work  top_tb.vhdl

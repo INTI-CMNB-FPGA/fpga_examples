@@ -21,8 +21,8 @@
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.numeric_std.all;
-library UTILS;
-use UTILS.verif.all;
+library FPGALIB;
+use FPGALIB.verif.all;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 

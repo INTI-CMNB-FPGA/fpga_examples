@@ -2,16 +2,16 @@
 -- Xilinx ml605 Minimal Transceiver Testbench
 --
 -- Author:
--- * Rodrigo A. Melo, rmelo@inti.gob.ar
+-- * Rodrigo A. Melo
 --
 -- Copyright (c) 2017 INTI
--- Copyright (c) 2017 Rodrigo A. Melo
+-- Distributed under the BSD 3-Clause License
 --
 
 library IEEE;
 use IEEE.std_logic_1164.all;
-library UTILS;
-use UTILS.Simul.all;
+library FPGALIB;
+use FPGALIB.Simul.all;
 
 entity Top_tb is
 end entity Top_tb;

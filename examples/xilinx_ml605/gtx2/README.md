@@ -1,13 +1,13 @@
 # Description
 
-Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) and TransLoop from hdl_utils.
+Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) and TransLoop from fpga_lib.
 * Transloop TX and RX data, checking that it was received fine.
 * It sends data in the form: K28.5 | DATA | K28.1 | DATA | K28.1 | DATA | K28.1 | DATA | K28.5
   * K28.5 is used to signaling start and end.
   * K28.1 is used as data separator.
   * DATA is an incremental counter value.
 * The status of Transloop is shown in GPIO LEDS.
-* Boundary from hdl_utils is also used. It is used to ensure that we understand *rx_data* in the same order that *tx_data*.
+* Boundary from fpga_lib is also used, to ensure that we understand *rx_data* in the same order that *tx_data*.
 
 # Useful documents
 

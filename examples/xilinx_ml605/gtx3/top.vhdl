@@ -10,9 +10,9 @@
 
 library IEEE;
 use IEEE.std_logic_1164.all;
-library UTILS;
-use UTILS.verif.all;
-use UTILS.sync.all;
+library FPGALIB;
+use FPGALIB.verif.all;
+use FPGALIB.sync.all;
 library UNISIM;
 use UNISIM.VCOMPONENTS.ALL;
 

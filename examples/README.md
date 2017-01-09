@@ -25,6 +25,6 @@
   * ddr3:
   * gpios: Using DIP switches and push-buttons to turn ON LEDs.
   * gtx:   Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) to change LEDs state with DIP switches.
-  * gtx2:  Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) and TransLoop from hdl_utils.
-  * gtx3:  Using a GigaBit Transceiver (gtx with 4 data bytes and 8b10b codification) and TransLoop from hdl_utils.
+  * gtx2:  Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) and TransLoop from fpga_lib.
+  * gtx3:  Using a GigaBit Transceiver (gtx with 4 data bytes and 8b10b codification) and TransLoop from fpga_lib.
   * mmcm:  Using Mixed-Mode Clock Manager to blink LEDs.
