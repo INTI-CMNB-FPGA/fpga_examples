@@ -12,26 +12,26 @@
 * Numonyx JS28F256P30 32MB Linear BPI Flash memory
 * System ACE CF and CompactFlash Connector (with a ULTRA CF of 2GB)
 * Clock sources:
-  * 2.5V LVDS differential 200 MHz oscillator (U11)
+  * 2.5V LVDS differential 200 MHz oscillator
     * Crystal oscillator: SiTime SiT9102AI-243N25E200.00000
     * Frequency stability: 50 ppm
-  * Oscillator Socket (X5) (Single-Ended, 2.5V) 
+  * Oscillator Socket (Single-Ended, 2.5V) 
     * Populated with a 66 MHz 2.5V single-ended MMD Components MBH2100H-66.000 MHz oscillator
   * SMA Connectors (Differential)
-    * Onboard 50 Ohm SMA connectors J58(P)/J55(N)
+    * Onboard 50 Ohm SMA connectors
   * GTX SMA Clock
-    * Onboard 50 Ohm SMA connectors J31(P)/J30(N)
+    * Onboard 50 Ohm SMA connectors
 * Access to 20 Multi-Gigabit Transceivers (GTX MGTs)
-  * 8 of the MGTs are wired to the PCIe x8 Endpoint (P1) edge connector fingers
-  * 8 of the MGTs are wired to the FMC HPC connector (J64)
-  * 1 MGT is wired to SMA connectors (J26, J27)
-  * 1 MGTs is wired to the FMC LPC connector (J63)
-  * 1 MGT is wired to the SFP Module connector (P4)
-  * 1 MGT is used for an SGMII connection to the Ethernet PHY (U80)
+  * 8 of the MGTs are wired to the PCIe x8 Endpoint edge connector fingers
+  * 8 of the MGTs are wired to the FMC HPC connector
+  * 1 MGT is wired to SMA connectors
+  * 1 MGTs is wired to the FMC LPC connector
+  * 1 MGT is wired to the SFP Module connector
+  * 1 MGT is used for an SGMII connection to the Ethernet PHY
 * 10/100/1000 Tri-Speed Ethernet PHY -> Marvell Alaska PHY device (88E1111)
-* USB-to-UART Bridge -> Silicon Labs CP2103GM (U34)
-* USB Controller -> Cypress CY7C67300 EZ-Host (U81)
-* DVI Codec -> Chrontel CH7301C (U38) capable of 1600 X 1200 resolution with 24-bit color.
+* USB-to-UART Bridge -> Silicon Labs CP2103GM
+* USB Controller -> Cypress CY7C67300 EZ-Host
+* DVI Codec -> Chrontel CH7301C capable of 1600 X 1200 resolution with 24-bit color
 * IIC Bus
 * User I/O
   * User LEDs (8) with parallel wired GPIO male pin header

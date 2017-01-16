@@ -1,10 +1,6 @@
 --
 -- GPIOs on ml605
 --
--- This example shows how to use DIP switches, push-buttons and LEDs.
--- 8 DIP switches (SW1) drives the adyacent 8 GPIO LEDS.
--- 5 direction push-buttons drives the 5 adyacents direction LEDs.
---
 -- Author(s):
 -- * Rodrigo A. Melo
 --
@@ -14,7 +10,6 @@
 
 library IEEE;
 use IEEE.std_logic_1164.all;
-use IEEE.numeric_std.all;
 
 entity Top is
    port (

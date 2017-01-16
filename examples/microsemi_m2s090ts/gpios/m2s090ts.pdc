@@ -1,0 +1,120 @@
+# Microsemi I/O Physical Design Constraints file
+
+# User I/O Constraints file 
+
+# Version: v11.7 11.7.0.119
+
+# Family: SmartFusion2 , Die: M2S090TS , Package: 484 FBGA
+
+# Date generated: Thu Jan 12 11:19:02 2017 
+
+# 
+# User Locked I/O Bank Settings
+# 
+
+# 
+# Unlocked I/O Bank Settings
+# The I/O Bank Settings can be locked by directly editing this file
+# or by making changes in the I/O Attribute Editor
+# 
+
+# 
+# User Locked I/O settings
+# 
+
+set_io {dips_i[0]}    \
+    -pinname L19      \
+    -fixed yes        \
+    -DIRECTION INPUT
+
+
+set_io {dips_i[1]}    \
+    -pinname L18      \
+    -fixed yes        \
+    -DIRECTION INPUT
+
+
+set_io {dips_i[2]}    \
+    -pinname K21      \
+    -fixed yes        \
+    -DIRECTION INPUT
+
+
+set_io {dips_i[3]}    \
+    -pinname K20      \
+    -fixed yes        \
+    -DIRECTION INPUT
+
+
+set_io {leds_o[0]}     \
+    -pinname E1        \
+    -fixed yes         \
+    -DIRECTION OUTPUT
+
+
+set_io {leds_o[1]}     \
+    -pinname F4        \
+    -fixed yes         \
+    -DIRECTION OUTPUT
+
+
+set_io {leds_o[2]}     \
+    -pinname F3        \
+    -fixed yes         \
+    -DIRECTION OUTPUT
+
+
+set_io {leds_o[3]}     \
+    -pinname G7        \
+    -fixed yes         \
+    -DIRECTION OUTPUT
+
+
+set_io {leds_o[4]}     \
+    -pinname H7        \
+    -fixed yes         \
+    -DIRECTION OUTPUT
+
+
+set_io {leds_o[5]}     \
+    -pinname J6        \
+    -fixed yes         \
+    -DIRECTION OUTPUT
+
+
+set_io {leds_o[6]}     \
+    -pinname H6        \
+    -fixed yes         \
+    -DIRECTION OUTPUT
+
+
+set_io {leds_o[7]}     \
+    -pinname H5        \
+    -fixed yes         \
+    -DIRECTION OUTPUT
+
+
+set_io {pbs_i[0]}     \
+    -pinname L20      \
+    -fixed yes        \
+    -DIRECTION INPUT
+
+
+set_io {pbs_i[1]}     \
+    -pinname K16      \
+    -fixed yes        \
+    -DIRECTION INPUT
+
+
+set_io {pbs_i[2]}     \
+    -pinname K18      \
+    -fixed yes        \
+    -DIRECTION INPUT
+
+
+set_io {pbs_i[3]}     \
+    -pinname J18      \
+    -fixed yes        \
+    -DIRECTION INPUT
+
+

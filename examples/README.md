@@ -13,7 +13,7 @@
 * microsemi_m2s090ts:
   * clock:
   * epcs:
-  * gpios:
+  * gpios: Using DIP switches and push-buttons to turn ON LEDs.
 * terasic_de0nano
   * clock:
   * gpios:
