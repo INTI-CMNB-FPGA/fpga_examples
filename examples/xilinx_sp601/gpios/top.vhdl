@@ -1,5 +1,5 @@
 --
--- GPIOs on s6micro
+-- GPIOs on sp601
 --
 -- Author(s):
 -- * Rodrigo A. Melo

@@ -1,0 +1,11 @@
+NET "clk_i"                LOC = "V10";
+NET "clk2_i"               LOC = "K15";
+NET "clk3_i"               LOC = "C10";
+NET "clk4_i"               LOC = "R8";
+
+NET "rst_i"                LOC = "V4";
+
+NET "leds_o[0]"            LOC = "C2";
+NET "leds_o[1]"            LOC = "F5";
+NET "leds_o[2]"            LOC = "L6";
+NET "leds_o[3]"            LOC = "P4";
