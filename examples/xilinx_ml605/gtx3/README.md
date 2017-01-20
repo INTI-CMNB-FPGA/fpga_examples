@@ -58,11 +58,11 @@ $ make prepare
 ```
 * Run synthesis, implementation and bitstream generation:
 ```
-$ make bit
+$ make run
 ```
-* Use impact to transfer or, if fpga_helpers is installed, run:
+* Run programing (or use impact):
 ```
-$ make prog-fpga
+$ make prog
 ```
 
 # How to test on hardware

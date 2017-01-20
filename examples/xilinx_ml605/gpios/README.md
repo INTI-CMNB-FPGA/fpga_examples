@@ -13,15 +13,11 @@ $ . /PATH_TO_ISE/ISE_DS/settings64.sh
 ```
 * Run synthesis, implementation and bitstream generation:
 ```
-$ make bit
+$ make run
 ```
-* Run programing (if fpga_helpers is installed):
+* Run programing (or use impact):
 ```
-$ make prog-fpga
-```
-* Or use impact:
-```
-$ impact
+$ make prog
 ```
 
 # How to test on hardware

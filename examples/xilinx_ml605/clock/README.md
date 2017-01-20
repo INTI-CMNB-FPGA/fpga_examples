@@ -19,16 +19,13 @@ $ . /PATH_TO_ISE/ISE_DS/settings64.sh
 ```
 * Run synthesis, implementation and bitstream generation:
 ```
-$ make bit
+$ make run
 ```
-* Run programing (if fpga_helpers is installed):
+* Run programing (or use impact):
 ```
-$ make prog-fpga
+$ make prog
 ```
-* Or use impact:
-```
-$ impact
-```
+
 # How to test on hardware
 
 * You must see the 12 user LEDs blinking (1 second ON, 1 second OFF).
