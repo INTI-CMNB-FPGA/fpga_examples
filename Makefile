@@ -1,4 +1,12 @@
 #!/usr/bin/make
+#by RAM
+
+EXAMPLES=$(wildcard examples/*/)
+
+.PHONY: clean submodule contributors
+
+clean:
+	@$(foreach EXAMPLE,$(EXAMPLES),$(if $(wildcard $(EXAMPLE)Makefile), make -C $(EXAMPLE) clean;))
 
 submodule:
 	@git submodule update --init; git submodule foreach 'git checkout master; git pull'
