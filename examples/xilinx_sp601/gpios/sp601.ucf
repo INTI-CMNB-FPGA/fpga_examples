@@ -1,0 +1,16 @@
+NET "dips_i[0]"            LOC = "D14";
+NET "dips_i[1]"            LOC = "E12";
+NET "dips_i[2]"            LOC = "F12";
+NET "dips_i[3]"            LOC = "V13";
+
+NET "pbs_i[0]"             LOC = "P4";
+NET "pbs_i[1]"             LOC = "F6";
+NET "pbs_i[2]"             LOC = "E4";
+NET "pbs_i[3]"             LOC = "F5";
+
+NET "rst_i"                LOC = "N4";
+
+NET "leds_o[0]"            LOC = "E13";
+NET "leds_o[1]"            LOC = "C14";
+NET "leds_o[2]"            LOC = "C4";
+NET "leds_o[3]"            LOC = "A4";
