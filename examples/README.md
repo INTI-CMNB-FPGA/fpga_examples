@@ -2,7 +2,7 @@
 
 * avnet_s6micro:
   * clock:
-  * gpios:
+  * gpios: Using DIP switches and push-buttons to turn ON LEDs.
   * lpddr:
 * lattice_icestick:
   * clock:
@@ -15,8 +15,8 @@
   * epcs:
   * gpios: Using DIP switches and push-buttons to turn ON LEDs.
 * terasic_de0nano
-  * clock:
-  * gpios:
+  * clock: Using the on-board clock source to blink LEDs.
+  * gpios: Using DIP switches and push-buttons to turn ON LEDs.
 * xilinx_sp601:
   * clock:
   * gpios:

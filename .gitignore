@@ -1,5 +1,5 @@
 ignore
-temp
+temp*
 
 # ISE
 examples/*/*/Top*
@@ -20,3 +20,16 @@ examples/*/*/testbench/*.wdb
 examples/*/*/testbench/isim
 examples/*/*/testbench/top_tb
 
+# Quartus
+examples/*/*/db/
+examples/*/*/incremental_db
+examples/*/*/*.rpt
+examples/*/*/*.done
+examples/*/*/*.smsg
+examples/*/*/*.summary
+examples/*/*/*.jdi
+examples/*/*/*.pin
+examples/*/*/*.qpf
+examples/*/*/*.qsf
+examples/*/*/*.sld
+examples/*/*/*.sof
