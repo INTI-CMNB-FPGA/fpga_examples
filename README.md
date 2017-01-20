@@ -8,9 +8,9 @@ This project is mainly developed and mantained by the *FPGA team* of the *Centre
 
 Root directory:
 * README.md: this file.
-* LICENSE: of the project.
-* CONTRIBUTING.md: How to Contribute to the project.
-* CONTRIBUTORS.md: list of people who contributed to the project.
+* [LICENSE](LICENSE): of the project.
+* [CONTRIBUTING.md](CONTRIBUTING.md): How to Contribute to the project.
+* [CONTRIBUTORS.md](CONTRIBUTORS.md): list of people who contributed to the project.
 * fpga_lib/: git submodule [fpga_lib](https://github.com/INTI-CMNB-FPGA/fpga_lib).
   * Provides some portable HDL snippets and Tcl scripts for synthesis and programming in a vendor independent way.
 * examples/: contain a directory for each supported board by the project.
@@ -20,7 +20,7 @@ Root directory:
   * `make contributors` is used to generate *CONTRIBUTORS.md*.
 
 example directory:
-* README.md: list of available examples.
+* [README.md](examples/README.md): list of available examples.
 * Several *vendor_board* sub directories.
 
 *vendor_board* directories:
@@ -35,12 +35,12 @@ Examples directories:
 * wrapper.vhdl [optional]: a wrapper for resources when complex, to have a cleanest top level.
 * Makefile: to prepare vendors files (if needed), run synthesis and programming.
 * options.tcl: used by Tcl script for synthesis and programming.
-* Constraint file such as <board.ext>.
+* Constraint file such as *board.ext*.
 * testbench/ [optional]: only provided when useful (no trivial such as gpios) or posible (no license problems).
 * **NOTE:** *Makefile* and *options.tcl* are used in conjunction with *fpga_lib/tcl*, to have an unified, vendor independent way, of synthetize and programming the FPGA. You can take the HDL and constraints files and use them with your prefered vendor tool.
 
 testbench directories:
 * top_tb.vhdl: test or at least stimulus to see waveforms.
 * Makefile: to run the test and see waveforms.
-* files.<ext>: the files of the project.
-* waves.<ext>: waveform to visualize.
+* files.*ext*: the files of the project.
+* waves.*ext*: waveform to visualize.
