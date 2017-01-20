@@ -6,17 +6,16 @@ This example shows how to use DIP switches, push-buttons and LEDs.
 # How to run synthesis, implementation and programming
 
 * For the used FPGA, Libero-Soc (this example use version 11.7) with a valid license is needed.
-* Prepare the environment to use Libero.
+* Prepare the environment to use Libero-SoC.
 * Run synthesis, implementation and bitstream generation:
 ```
-$ make bit
+$ make run
 ```
-* Run programing (if fpga_helpers is installed):
+* Run programing (or use FlashPro):
 ```
-$ make prog-spi
+$ make prog
 ```
-* Or use FlashPro
 
 # How to test on hardware
 
-* Change SW1..5 to see how the LEDs change its state.
+* Change SW1..5 to see how the LEDs changes its state.
