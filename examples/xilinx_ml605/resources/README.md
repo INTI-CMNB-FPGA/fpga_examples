@@ -1,4 +1,11 @@
-# How resources for ml605 were obtained
+# Coregen Project for ml605 board
+
+* To open:
+```
+coregen -p .
+```
+
+# How resources were obtained
 
 ## Project Creation
 
@@ -120,3 +127,40 @@ Similar to gtx2. Changes:
 * Page1:
   * Data Path Width (TX & RX): 32 bits.
 
+# DDR3
+
+* Run Coregen.
+* Navigate: Memories & Storage elements -> Memory interface Generators.
+* Run "MIG Virtex-6 and Spartan-6".
+
+Memory Interface Generator:
+* CORE Generator Options: Nothing to do, Next.
+* Create Design, component name *mig*, Next.
+* Pin Compatible FPGAs: do not touch, Next.
+* Memory Selection: DDR3 SDRAM, Next.
+* Options for Controller 0:
+  * Memory type = SODIMMs
+  * Memory Part: MT4JSF6464HY-1G1
+  * Ordering: strict <sup>1</sup>
+  * Next.
+* Memory Options for Controller 0: do not touch, Next.
+* FPGA Options: do not touch, Next.
+* Extended FPGA Options: New Design, Next.
+* Bank Selection For Controller 0:
+  * Deselect Banks
+  * Bank 32: Address/Control
+  * Bank 25, 26, 27: Data
+  * Bank 34: System clock
+  * Master bank: 25
+  * Next.
+* Summary: nothing to do, Next.
+* Memory Model: Accept, Next.
+* PCB Information: nothing to do, Next.
+* Desgin Notes: nothing to do, Generate.
+
+<sup>1</sup>
+When set to NORMAL, ORDERING enables the reordering algorithm in the MC. When set to STRICT,
+request reordering is disabled, which greatly limits throughput to the external memory device.
+However, it can be helpful during initial core integration because requests are processed in the
+order received; the user design does not need to keep track of which requests are pending and which
+requests have been processed.
