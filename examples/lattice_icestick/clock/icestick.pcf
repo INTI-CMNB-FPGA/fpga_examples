@@ -1,6 +1,8 @@
-set_io led1_o 96
-set_io led2_o 97
-set_io rst_i 7
+set_io led1_o 99
+set_io led2_o 98
+set_io led3_o 97
+set_io led4_o 96
+set_io led5_o 95
 set_io clk_i 21
 
 
