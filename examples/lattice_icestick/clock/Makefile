@@ -1,13 +1,11 @@
 #!/usr/bin/make
 
 # Author: Bruno Valinoti
+
 BOARD = icestick
 LDIR = ../../../fpga_lib/verilog/verif/
 NAME = top
 FLAGS= -y$(LDIR)
-
-#Project simulation
-simu: $(NAME)_tb.vcd
 
 #Project synthesis
 run: $(NAME).bin
@@ -16,10 +14,6 @@ run: $(NAME).bin
 prog: $(NAME).bin
 	iceprog $(NAME).bin
 
-
-$(NAME)_tb.vcd: $(NAME)_tb.v $(NAME).v $(SOURCES1)
-	iverilog $(NAME).v $(SOURCES1) $(NAME)_tb.v -o $(NAME)_tb.out	
-	./$(NAME)_tb.out -lxt2
 
 $(NAME).bin: $(BOARD).pcf $(NAME).v $(SOURCES1)
     #Synthesis

@@ -8,10 +8,10 @@
 
 
 module top (
-//Entradas
+//Inputs 
    input wire     clk_i, 
    input wire     rst_i,
-//Salidas
+//Outputs
    output wire    led1_o,
    output wire    led2_o,
    output wire    led3_o,
