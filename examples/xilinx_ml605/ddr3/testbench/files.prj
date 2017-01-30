@@ -1,3 +1,5 @@
+vhdl fpgalib ../../../../fpga_lib/vhdl/verif/verif_pkg.vhdl
+vhdl fpgalib ../../../../fpga_lib/vhdl/verif/loopcheck.vhdl
 vhdl fpgalib ../../../../fpga_lib/vhdl/simul/simul_pkg.vhdl
 vhdl fpgalib ../../../../fpga_lib/vhdl/simul/clock.vhdl
 
@@ -54,5 +56,6 @@ vhdl  work  ../temp/mig/user_design/rtl/ui/ui_top.vhd
 vhdl  work  ../temp/mig/user_design/rtl/ui/ui_wr_data.vhd
 
 verilog  work  $XILINX/verilog/src/glbl.v
+vhdl     work  ../top.vhdl
 vhdl     work  top_tb.vhdl
 verilog  work  ../temp/mig/user_design/sim/ddr3_model.v -d x1Gb -d sg187E -d x16 -i ./
