@@ -5,8 +5,7 @@
   * [gpios](avnet_s6micro/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
   * lpddr:
 * lattice_icestick:
-  * clock:[clock](lattice_icestick/clock/README.md): Using the clock source to blink LEDs.
-  * gpios:
+  * [clock](lattice_icestick/clock/README.md): Using the clock source to blink LEDs.
 * lattice_breakout:
   * clock:
   * gpios:
