@@ -7,8 +7,7 @@
 * lattice_icestick:
   * [clock](lattice_icestick/clock/README.md): Using the clock source to blink LEDs.
 * lattice_breakout:
-  * clock:
-  * gpios:
+  * [clock](lattice_breakout/clock/README.md): Using the clock source to blink LEDs.
 * microsemi_m2s090ts: SmartFusion2 090, 
   * clock:
   * epcs:
