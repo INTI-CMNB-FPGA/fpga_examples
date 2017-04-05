@@ -2,7 +2,7 @@
 
 # Author: Bruno Valinoti
 
-BOARD = icestick
+BOARD = breakout
 LDIR = ../../../fpga_lib/verilog/verif/
 NAME = top
 FLAGS= -y$(LDIR)
@@ -20,7 +20,7 @@ $(NAME).bin: $(BOARD).pcf $(NAME).v $(SOURCES1)
 	yosys -p "synth_ice40 -blif $(NAME).blif" $(NAME).v $(SOURCES1)
 
 	#Place & route
-	arachne-pnr -d 1k -p $(BOARD).pcf $(NAME).blif -o $(NAME).txt
+	arachne-pnr -d 8k -p $(BOARD).pcf $(NAME).blif -o $(NAME).txt
 
 	#Binary generation
 	icepack $(NAME).txt $(NAME).bin

@@ -16,7 +16,11 @@ module top (
    output wire    led2_o,
    output wire    led3_o,
    output wire    led4_o,
-   output wire    led5_o
+   output wire    led5_o,
+   output wire    led6_o,
+   output wire    led7_o,
+   output wire    led8_o
+
    );
 
 //Signals declaration sector
@@ -35,10 +39,12 @@ wire led;
 
 //Concurrent assigns
 assign led1_o = led;
-assign led2_o = led;
-assign led3_o = led;
+assign led2_o = ~led;
+assign led3_o = ~led;
 assign led4_o = led;
-assign led5_o = ~led;
-
+assign led5_o = led;
+assign led6_o = ~led;
+assign led7_o = ~led;
+assign led8_o = led;
 endmodule
 

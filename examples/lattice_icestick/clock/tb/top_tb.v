@@ -24,17 +24,17 @@ initial begin
    #4 rst = 1'b0;
    @(posedge(clk));
    if (LED5 == 1'b1)
-      $display("Inicializacion OK."); 
+      $display("Initialization OK."); 
    else
-      $display("Mala inicializacion");
+      $display("Bad initialization");
 	 
     
    repeat(12_000_000) @(posedge(clk));
    repeat(2) @(posedge(clk));
    if (LED5 == 1'b0)
-      $display("termino OK.");
+      $display("Test finished OK.");
    else
-      $display("Termino mal");
+      $display("Wrong LED value on test finish");
 	    
    $finish;
 end

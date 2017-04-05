@@ -1,0 +1,9 @@
+set_io clk_i  J3
+set_io led8_o C3
+set_io led7_o B3
+set_io led6_o C4
+set_io led5_o C5
+set_io led4_o A1
+set_io led3_o A2
+set_io led2_o B4
+set_io led1_o B5
