@@ -4,6 +4,8 @@
   * [clock](avnet_s6micro/clock/README.md): Using the clock sources to blink LEDs.
   * [gpios](avnet_s6micro/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
   * lpddr:
+* digilent_zybo: Zynq-7000 XC7Z010, speed grade -1
+  * [gpios](digilent_zybo/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
 * lattice_icestick:
   * [clock](lattice_icestick/clock/README.md): Using the clock source to blink LEDs.
 * lattice_breakout:
