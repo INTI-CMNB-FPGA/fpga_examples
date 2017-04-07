@@ -6,10 +6,20 @@ This example shows how to use DIP switches, push-buttons and LEDs.
 
 # How to run synthesis, implementation and programming
 
-* Use files to do a Vivado or ISE project.
-* A valid license is needed.
+* Prepare the environment to use Vivado. For example, run:
+```
+$ . /PATH_TO_VIVADO/settings64.sh
+```
+* Run synthesis, implementation and bitstream generation:
+```
+$ make run
+```
+* Run programing:
+```
+$ make prog
+```
 
 # How to test on hardware
 
-* Change SW12.1..4 to see how GPIO LEDs change its state.
-* Hold SW7, 8, 9 y 13 to see how GPIO LEDs change its state.
+* Change SW0..3 to see how GPIO LEDs change its state.
+* Hold BTN0..3 to see how GPIO LEDs change its state.
