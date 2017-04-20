@@ -20,6 +20,13 @@ examples/*/*/testbench/*.wdb
 examples/*/*/testbench/isim
 examples/*/*/testbench/top_tb
 
+# Vivado
+examples/*/*/*.jou
+examples/*/*/*.cache
+examples/*/*/*.hw
+examples/*/*/*.runs
+examples/*/*/*.xpr
+
 # Quartus
 examples/*/*/db/
 examples/*/*/incremental_db
