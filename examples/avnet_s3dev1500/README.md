@@ -28,3 +28,8 @@
 * RS-232 serial port
 * 10/100 Ethernet
 * USB 2.0
+
+## Power Supply
+* 5V-DC 3.5mm Barrel Jack
+* 5V USB Power 
+

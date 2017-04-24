@@ -1,6 +1,9 @@
 # List of examples
 
-* avnet_s6micro: Spartan 6 LX 9, speed grade -2
+* avnet_s3dev1500: Spartan-3 1500, speed grade -4
+  * [gpios](avnet_s3dev1500/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
+  * [clock](avnet_s3dev1500/clock/README.md): Using the clock sources to blink LEDs.
+* avnet_s6micro: Spartan-6 LX 9, speed grade -2
   * [clock](avnet_s6micro/clock/README.md): Using the clock sources to blink LEDs.
   * [gpios](avnet_s6micro/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
   * lpddr:
@@ -10,17 +13,17 @@
   * [clock](lattice_icestick/clock/README.md): Using the clock source to blink LEDs.
 * lattice_breakout:
   * [clock](lattice_breakout/clock/README.md): Using the clock source to blink LEDs.
-* microsemi_m2s090ts: SmartFusion2 090, 
+* microsemi_m2s090ts: SmartFusion2 090TS
   * clock:
   * epcs:
   * [gpios](microsemi_m2s090ts/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
 * terasic_de0nano: Cyclone IV E, grade 6
   * [clock](terasic_de0nano/clock/README.md): Using the clock source to blink LEDs.
   * [gpios](terasic_de0nano/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-* xilinx_sp601: Spartan 6 LX 16, speed grade -2
+* xilinx_sp601: Spartan-6 LX 16, speed grade -2
   * [clock](xilinx_sp601/clock/README.md): Using the two on-board clock sources to blink LEDs.
   * [gpios](xilinx_sp601/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-* xilinx_ml605: Virtex 6 LXT 240, speed grade -1
+* xilinx_ml605: Virtex-6 LXT 240, speed grade -1
   * [clock](xilinx_ml605/clock/README.md): Using the two on-board clock sources to blink LEDs.
   * ddr3:
   * [gpios](xilinx_ml605/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
