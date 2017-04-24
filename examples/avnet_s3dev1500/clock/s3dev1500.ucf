@@ -1,0 +1,17 @@
+###################################################################
+##                          CLOCK INPUTS                         ##
+###################################################################
+NET "clk_i"                LOC = "AD13"; #66MHZ
+NET "clk2_i"               LOC = "AF14"; #HDR 
+NET "clk3_i"               LOC = "A13" ; #CLK_100MHZ
+NET "clk4_i"               LOC = "AE14"; #40MHZ TYPICAL, SOCKET		
+
+NET "rst_i"                LOC ="H14";	
+
+NET "leds_o[0]"            LOC = "U4";
+NET "leds_o[1]"            LOC = "W4";
+NET "leds_o[2]"            LOC = "V6";
+NET "leds_o[3]"            LOC = "W7";
+
+
+
