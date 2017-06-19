@@ -28,5 +28,5 @@ $(NAME).bin: $(BOARD).pcf $(NAME).v $(SOURCES1)
 
 SOURCES1=$(wildcard $(LDIR)/*.v)
 
-clean:
+clean-all:
 	rm -f *.bin *.txt *.blif *.out 
