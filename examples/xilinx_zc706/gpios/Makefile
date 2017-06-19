@@ -1,5 +1,5 @@
 #!/usr/bin/make
 
 TOOL=vivado
-TCLPATH=../../../fpga_lib/tcl
+TCLPATH=../../../fpga_helpers/tcl
 include $(TCLPATH)/Makefile

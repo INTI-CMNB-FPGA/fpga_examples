@@ -1,5 +1,5 @@
 #!/usr/bin/make
 
 TOOL=libero
-TCLPATH=../../../fpga_lib/tcl
+TCLPATH=../../../fpga_helpers/tcl
 include $(TCLPATH)/Makefile

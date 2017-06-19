@@ -1,3 +1,6 @@
 [submodule "fpga_lib"]
 	path = fpga_lib
 	url = https://github.com/INTI-CMNB-FPGA/fpga_lib.git
+[submodule "fpga_helpers"]
+	path = fpga_helpers
+	url = https://github.com/INTI-CMNB-FPGA/fpga_helpers.git

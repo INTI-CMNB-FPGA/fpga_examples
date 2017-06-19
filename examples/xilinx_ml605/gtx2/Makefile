@@ -1,7 +1,7 @@
 #!/usr/bin/make
 
 TOOL=ise
-TCLPATH=../../../fpga_lib/tcl
+TCLPATH=../../../fpga_helpers/tcl
 include $(TCLPATH)/Makefile
 
 COREGEN := $(shell command -v coregen 2> /dev/null)
