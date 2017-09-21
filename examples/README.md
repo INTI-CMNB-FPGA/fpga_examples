@@ -1,5 +1,8 @@
 # List of examples
 
+* altera_10M08: MAX 10 10M08
+  * [gpios](altera_10M08/gpios/README.md): Using DIP switches to turn ON LEDs.
+  * [clock](altera_10M08/clock/README.md): Using the clock source to blink LEDs.
 * avnet_s3dev1500: Spartan-3 1500, speed grade -4
   * [gpios](avnet_s3dev1500/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
   * [clock](avnet_s3dev1500/clock/README.md): Using the clock sources to blink LEDs.
