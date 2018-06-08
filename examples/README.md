@@ -38,3 +38,5 @@
   * [mmcm](xilinx_ml605/mmcm/README.md):   Using Mixed-Mode Clock Manager to blink LEDs.
 * xilinx_zc706: Zynq-7000 XC7Z045, speed grade -2
   * [gpios](xilinx_zc706/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
+  * [dma_polling](xilinx_zc706/dma_polling/README.md): AXI DMA in Direct Register Mode by polling.
+  * [dma_interrupt](xilinx_zc706/dma_interrupt/README.md): AXI DMA in Direct Register Mode by interrupts.
