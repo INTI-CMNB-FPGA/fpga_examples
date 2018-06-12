@@ -1,6 +1,6 @@
 # Description
 
-Example about how to use AXI DMA in Direct Register Mode by interrupts.
+Example about how to use AXI DMA in Simple Mode.
 It writes to AXI DMA the max. quantity of samples of 32 bits (2M-1), reads data back from AXI DMA and compares.
 
 # Useful documents
@@ -15,7 +15,7 @@ It writes to AXI DMA the max. quantity of samples of 32 bits (2M-1), reads data 
 $ . /PATH_TO_VIVADO/settings64.sh
 ```
 * Open Vivado and create a new proyect for: ZYNQ-7 ZC706 Evaluation Board.
-* In Tcl Console, run `source <PATH>/dma_interrupt.tcl` (block design generated with Vivado 2017.4).
+* In Tcl Console, run `source <PATH>/dma_simple.tcl` (block design generated with Vivado 2017.4).
 * Rigth click in Sources -> Design Sources -> design_1 and Create HDL Wrapper.
 * Generate Bitstream.
 * File -> Export -> Export Hardware (include bitstream)
@@ -23,16 +23,48 @@ $ . /PATH_TO_VIVADO/settings64.sh
 * Generate a new Application Project:
   * OS Platform: standalone
   * Template: Hello World
-* Replace `helloworld.c` content with code from `<ROOT>/shared/zynq7000/dma_interrupt.c`.
+* Replace `helloworld.c` content with code from:
+  * Using Polling: `<ROOT>/shared/zynq7000/dma_simple_polling.c`
+  * Using Interrupts: `<ROOT>/shared/zynq7000/dma_simple_interrupt.c`
 * Transfer the bitstream to the FPGA.
 * Configure SDK terminal (or another terminal program) with the needed Port to see UART Output (J21 - USB UART).
 * Rigth Click over polled project -> Run As -> Launch on hardware.
 
 # How to test on hardware
 
-In the serial terminal you must see:
+In the serial terminal you must see (according to which example you used):
+
 ```
-* DMA Interrupt Example
+* DMA Simple Mode by Polling Example
+* Initializing DMA
+* Playing with DMA
+Try 1
+Try 1 passed
+Try 2
+Try 2 passed
+Try 3
+Try 3 passed
+Try 4
+Try 4 passed
+Try 5
+Try 5 passed
+Try 6
+Try 6 passed
+Try 7
+Try 7 passed
+Try 8
+Try 8 passed
+Try 9
+Try 9 passed
+Try 10
+Try 10 passed
+* Example Passed
+```
+
+Or
+
+```
+* DMA Simple Mode by Interrupt Example
 * Initializing DMA
 * Initializing Interrupts
 * Playing with DMA

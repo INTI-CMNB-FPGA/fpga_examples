@@ -1,5 +1,5 @@
 /*
-* AXI DMA in Direct Register Mode by polling
+* AXI DMA in Simple Mode by polling
 *
 * Author(s):
 * * Rodrigo A. Melo
@@ -49,6 +49,7 @@ int dma_example() {
         }
 
         Xil_DCacheFlushRange((int)tx_buf, BYTES);
+        Xil_DCacheFlushRange((int)rx_buf, BYTES);
 
         status = XAxiDma_SimpleTransfer(&dma,(int)tx_buf, BYTES, XAXIDMA_DMA_TO_DEVICE);
         if (status != XST_SUCCESS) {
@@ -75,7 +76,7 @@ int dma_example() {
 /*****************************************************************************/
 int main() {
     int status;
-    xil_printf("* DMA Polling Example\n");
+    xil_printf("* DMA Simple Mode by Polling Example\n");
     xil_printf("* Initializing DMA\n");
     status = dma_init(XPAR_AXIDMA_0_DEVICE_ID);
     if (status != XST_SUCCESS) {
@@ -85,9 +86,9 @@ int main() {
     xil_printf("* Playing with DMA\n");
     status = dma_example();
     if (status != XST_SUCCESS) {
-       xil_printf("* Example Failed\r\n");
+       xil_printf("* Example Failed\n");
        return XST_FAILURE;
     }
-    xil_printf("* Example Passed\r\n");
+    xil_printf("* Example Passed\n");
     return XST_SUCCESS;
 }

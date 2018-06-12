@@ -1,5 +1,5 @@
 /*
-* AXI DMA in Direct Register Mode by interrupts
+* AXI DMA in Simple Mode by interrupts
 *
 * Author(s):
 * * Rodrigo A. Melo
@@ -155,6 +155,7 @@ int dma_example() {
         }
 
         Xil_DCacheFlushRange((int)tx_buf, BYTES);
+        Xil_DCacheFlushRange((int)rx_buf, BYTES);
 
         err_int = 0;
         tx_int  = 0;
@@ -191,7 +192,7 @@ int dma_example() {
 /*****************************************************************************/
 int main() {
     int status;
-    xil_printf("* DMA Interrupt Example\n");
+    xil_printf("* DMA Simple Mode by Interrupt Example\n");
     xil_printf("* Initializing DMA\n");
     status = dma_init(XPAR_AXIDMA_0_DEVICE_ID);
     if (status != XST_SUCCESS) {
@@ -211,13 +212,13 @@ int main() {
     xil_printf("* Playing with DMA\n");
     status = dma_example();
     if (status != XST_SUCCESS) {
-       xil_printf("* Example Failed\r\n");
+       xil_printf("* Example Failed\n");
        return XST_FAILURE;
     }
     intc_stop(
         XPAR_FABRIC_AXI_DMA_0_MM2S_INTROUT_INTR,
         XPAR_FABRIC_AXI_DMA_0_S2MM_INTROUT_INTR
     );
-    xil_printf("* Example Passed\r\n");
+    xil_printf("* Example Passed\n");
     return XST_SUCCESS;
 }
