@@ -15,8 +15,14 @@
 #define TX_BASE_ADDR   DDR_BASE_ADDR + 0x01000000
 #define RX_BASE_ADDR   TX_BASE_ADDR + 0x00800000 // 8M
 
-#define SAMPLES        8*1024*1023/4 // Max when "Width of buffer length register" is 23 bits
-#define BYTES          SAMPLES * sizeof(int)
+//Select one or add your own size
+//#define data_t         u8
+//#define data_t         u16
+#define data_t         u32
+//#define data_t         u64
+
+#define BYTES          (8*1024*1024-1) // Max when "Width of buffer length register" is 23 bits
+#define SAMPLES        BYTES / sizeof(data_t)
 
 XAxiDma dma;
 XScuGic intc;
@@ -135,7 +141,13 @@ int dma_init(int device_id) {
     }
     status = XAxiDma_CfgInitialize(&dma, cfg);
     if (status != XST_SUCCESS) {
-       xil_printf("DMA configuration failed\n");
+       xil_printf("ERROR: DMA configuration failed\n");
+       return XST_FAILURE;
+    }
+    if (! XAxiDma_HasSg(&dma)) {
+       xil_printf("INFO: Device configured in Simple Mode.\n");
+    } else {
+       xil_printf("ERROR: Device configured in Scatter Gather Mode.\n");
        return XST_FAILURE;
     }
     return XST_SUCCESS;
@@ -143,10 +155,10 @@ int dma_init(int device_id) {
 
 int dma_example() {
     int i, status, try;
-    int *tx_buf, *rx_buf;
+    data_t *tx_buf, *rx_buf;
 
-    tx_buf = (int *)TX_BASE_ADDR;
-    rx_buf = (int *)RX_BASE_ADDR;
+    tx_buf = (data_t *)TX_BASE_ADDR;
+    rx_buf = (data_t *)RX_BASE_ADDR;
 
     for (try = 1; try <= 10; try++) {
         xil_printf("Try %d\n", try);
@@ -154,21 +166,21 @@ int dma_example() {
             tx_buf[i] = i+try;
         }
 
-        Xil_DCacheFlushRange((int)tx_buf, BYTES);
-        Xil_DCacheFlushRange((int)rx_buf, BYTES);
+        Xil_DCacheFlushRange((UINTPTR)tx_buf, BYTES);
+        Xil_DCacheFlushRange((UINTPTR)rx_buf, BYTES);
 
         err_int = 0;
         tx_int  = 0;
         rx_int  = 0;
 
-        status = XAxiDma_SimpleTransfer(&dma,(int)tx_buf, BYTES, XAXIDMA_DMA_TO_DEVICE);
+        status = XAxiDma_SimpleTransfer(&dma,(UINTPTR)tx_buf, BYTES, XAXIDMA_DMA_TO_DEVICE);
         if (status != XST_SUCCESS) {
-           xil_printf("DMA TX failed\n");
+           xil_printf("DMA TX SimpleTransfer failed\n");
            return XST_FAILURE;
         }
-        status = XAxiDma_SimpleTransfer(&dma,(int)rx_buf, BYTES, XAXIDMA_DEVICE_TO_DMA);
+        status = XAxiDma_SimpleTransfer(&dma,(UINTPTR)rx_buf, BYTES, XAXIDMA_DEVICE_TO_DMA);
         if (status != XST_SUCCESS) {
-           xil_printf("DMA RX failed\n");
+           xil_printf("DMA RX SimpleTransfer failed\n");
            return XST_FAILURE;
         }
 
@@ -184,7 +196,6 @@ int dma_example() {
                return XST_FAILURE;
             }
         }
-
         xil_printf("Try %d passed\n", try);
     }
     return XST_SUCCESS;
