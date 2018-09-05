@@ -12,6 +12,7 @@
   * lpddr:
 * digilent_zybo: Zynq-7000 XC7Z010, speed grade -1
   * [gpios](digilent_zybo/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
+  * [dma](digilent_zybo/dma/README.md)    : AXI DMA in Simple Mode.
 * digilent_pynq: Zynq-7000 XC7Z020, speed grade -1
   * [gpios](digilent_pynq/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
 * lattice_icestick:
@@ -38,4 +39,4 @@
   * [mmcm](xilinx_ml605/mmcm/README.md):   Using Mixed-Mode Clock Manager to blink LEDs.
 * xilinx_zc706: Zynq-7000 XC7Z045, speed grade -2
   * [gpios](xilinx_zc706/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-  * [dma](xilinx_zc706/dma/README.md): AXI DMA in Simple and Scatter Gather Mode.
+  * [dma](xilinx_zc706/dma/README.md)    : AXI DMA in Simple Mode.
