@@ -10,6 +10,8 @@
   * [clock](avnet_s6micro/clock/README.md): Using the clock sources to blink LEDs.
   * [gpios](avnet_s6micro/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
   * lpddr:
+* ciaa_acc: Zynq-7000 XC7Z030, speed grade -2
+  * [dma](ciaa_acc/dma/README.md) : AXI DMA in Simple Mode.
 * digilent_zybo: Zynq-7000 XC7Z010, speed grade -1
   * [gpios](digilent_zybo/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
   * [dma](digilent_zybo/dma/README.md)    : AXI DMA in Simple Mode.
