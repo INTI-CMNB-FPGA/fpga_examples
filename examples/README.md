@@ -1,44 +1,45 @@
 # List of examples
 
 * altera_10M08: MAX 10 10M08
-  * [gpios](altera_10M08/gpios/README.md): Using DIP switches to turn ON LEDs.
-  * [clock](altera_10M08/clock/README.md): Using the clock source to blink LEDs.
+  * [clock](altera_10M08/clock): Using the clock source to blink LEDs.
+  * [gpios](altera_10M08/gpios): Using DIP switches to turn ON LEDs.
 * avnet_s3dev1500: Spartan-3 1500, speed grade -4
-  * [gpios](avnet_s3dev1500/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-  * [clock](avnet_s3dev1500/clock/README.md): Using the clock sources to blink LEDs.
+  * [clock](avnet_s3dev1500/clock): Using the clock sources to blink LEDs.
+  * [gpios](avnet_s3dev1500/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * avnet_s6micro: Spartan-6 LX 9, speed grade -2
-  * [clock](avnet_s6micro/clock/README.md): Using the clock sources to blink LEDs.
-  * [gpios](avnet_s6micro/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
+  * [clock](avnet_s6micro/clock): Using the clock sources to blink LEDs.
+  * [gpios](avnet_s6micro/gpios): Using DIP switches and push-buttons to turn ON LEDs.
   * lpddr:
 * ciaa_acc: Zynq-7000 XC7Z030, speed grade -2
-  * [dma](ciaa_acc/dma/README.md) : AXI DMA in Simple Mode.
+  * [dma](ciaa_acc/dma) : AXI DMA in Simple Mode.
 * digilent_zybo: Zynq-7000 XC7Z010, speed grade -1
-  * [gpios](digilent_zybo/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-  * [dma](digilent_zybo/dma/README.md)    : AXI DMA in Simple Mode.
+  * [axi](digilent_zybo/axi): Using the Zynq AXI Interfaces.
+  * [dma](digilent_zybo/dma) : AXI DMA in Simple Mode.
+  * [gpios](digilent_zybo/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * digilent_pynq: Zynq-7000 XC7Z020, speed grade -1
-  * [gpios](digilent_pynq/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
+  * [gpios](digilent_pynq/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * lattice_icestick:
-  * [clock](lattice_icestick/clock/README.md): Using the clock source to blink LEDs.
+  * [clock](lattice_icestick/clock): Using the clock source to blink LEDs.
 * lattice_breakout:
-  * [clock](lattice_breakout/clock/README.md): Using the clock source to blink LEDs.
+  * [clock](lattice_breakout/clock): Using the clock source to blink LEDs.
 * microsemi_m2s090ts: SmartFusion2 090TS
   * clock:
   * epcs:
-  * [gpios](microsemi_m2s090ts/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
+  * [gpios](microsemi_m2s090ts/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * terasic_de0nano: Cyclone IV E, grade 6
-  * [clock](terasic_de0nano/clock/README.md): Using the clock source to blink LEDs.
-  * [gpios](terasic_de0nano/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
+  * [clock](terasic_de0nano/clock): Using the clock source to blink LEDs.
+  * [gpios](terasic_de0nano/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * xilinx_sp601: Spartan-6 LX 16, speed grade -2
-  * [clock](xilinx_sp601/clock/README.md): Using the two on-board clock sources to blink LEDs.
-  * [gpios](xilinx_sp601/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
+  * [clock](xilinx_sp601/clock): Using the two on-board clock sources to blink LEDs.
+  * [gpios](xilinx_sp601/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * xilinx_ml605: Virtex-6 LXT 240, speed grade -1
-  * [clock](xilinx_ml605/clock/README.md): Using the two on-board clock sources to blink LEDs.
+  * [clock](xilinx_ml605/clock): Using the two on-board clock sources to blink LEDs.
   * ddr3:
-  * [gpios](xilinx_ml605/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-  * [gtx](xilinx_ml605/gtx/README.md):     Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) to change LEDs state with DIP switches.
-  * [gtx2](xilinx_ml605/gtx2/README.md):   Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) and TransLoop from fpga_lib.
-  * [gtx3](xilinx_ml605/gtx3/README.md):   Using a GigaBit Transceiver (gtx with 4 data bytes and 8b10b codification) and TransLoop from fpga_lib.
-  * [mmcm](xilinx_ml605/mmcm/README.md):   Using Mixed-Mode Clock Manager to blink LEDs.
+  * [gpios](xilinx_ml605/gpios): Using DIP switches and push-buttons to turn ON LEDs.
+  * [gtx](xilinx_ml605/gtx): Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) to change LEDs state with DIP switches.
+  * [gtx2](xilinx_ml605/gtx2): Using a GigaBit Transceiver (gtx with 2 data bytes and 8b10b codification) and TransLoop from fpga_lib.
+  * [gtx3](xilinx_ml605/gtx3): Using a GigaBit Transceiver (gtx with 4 data bytes and 8b10b codification) and TransLoop from fpga_lib.
+  * [mmcm](xilinx_ml605/mmcm): Using Mixed-Mode Clock Manager to blink LEDs.
 * xilinx_zc706: Zynq-7000 XC7Z045, speed grade -2
-  * [gpios](xilinx_zc706/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-  * [dma](xilinx_zc706/dma/README.md)    : AXI DMA in Simple Mode.
+  * [dma](xilinx_zc706/dma): AXI DMA in Simple Mode.
+  * [gpios](xilinx_zc706/gpios): Using DIP switches and push-buttons to turn ON LEDs.
