@@ -92,6 +92,12 @@ end AXIF_MASTER_DPRAM;
 
 architecture arch_imp of AXIF_MASTER_DPRAM is
 
+   signal status  : std_logic_vector(31 downto 0):=(others => '0');
+   signal control : std_logic_vector(31 downto 0);
+   signal length  : std_logic_vector(31 downto 0);
+   signal rd_addr : std_logic_vector(31 downto 0);
+   signal wr_addr : std_logic_vector(31 downto 0);
+
 begin
 
    S_AXIL_inst : entity work.AXIF_MASTER_DPRAM_S_AXIL
@@ -100,6 +106,12 @@ begin
       C_S_AXI_ADDR_WIDTH => C_S_AXIL_ADDR_WIDTH
    )
    port map (
+      status_i      => status,
+      control_o     => control,
+      length_o      => length,
+      rd_addr_o     => rd_addr,
+      wr_addr_o     => wr_addr,
+      --
       S_AXI_ACLK    => aclk,
       S_AXI_ARESETN => aresetn,
       S_AXI_AWADDR  => s_axil_awaddr,
@@ -137,9 +149,12 @@ begin
       C_M_AXI_BUSER_WIDTH  => C_M_AXIF_BUSER_WIDTH
    )
    port map (
-      INIT_AXI_TXN  => '1',
-      TXN_DONE      => open,
-      ERROR         => open,
+      start_i       => control(0),
+      length_i      => length,
+      rd_addr_i     => rd_addr,
+      wr_addr_i     => wr_addr,
+      busy_o        => status(0),
+      --
       M_AXI_ACLK    => aclk,
       M_AXI_ARESETN => aresetn,
       M_AXI_AWID    => m_axif_awid,

@@ -19,12 +19,12 @@ entity AXIF_MASTER_DPRAM_M_AXIF is
       C_M_AXI_BUSER_WIDTH  : integer:= 0
    );
    port (
-      -- Users to add ports here
-
-      -- User ports ends
-      INIT_AXI_TXN  : in std_logic;
-      TXN_DONE      : out std_logic;
-      ERROR         : out std_logic;
+      start_i       :  in std_logic;
+      length_i      :  in std_logic_vector(C_M_AXI_DATA_WIDTH-1 downto 0);
+      rd_addr_i     :  in std_logic_vector(C_M_AXI_DATA_WIDTH-1 downto 0);
+      wr_addr_i     :  in std_logic_vector(C_M_AXI_DATA_WIDTH-1 downto 0);
+      busy_o        : out std_logic;
+      --
       M_AXI_ACLK    : in std_logic;
       M_AXI_ARESETN : in std_logic;
       M_AXI_AWID    : out std_logic_vector(C_M_AXI_ID_WIDTH-1 downto 0);
@@ -149,6 +149,10 @@ architecture implementation of AXIF_MASTER_DPRAM_M_AXIF is
    signal init_txn_edge   : std_logic;
    signal init_txn_pulse   : std_logic;
 
+   -- To be deleted
+   signal INIT_AXI_TXN  : std_logic;
+   signal TXN_DONE      : std_logic;
+   signal ERROR         : std_logic;
 begin
 
    --I/O Connections. Write Address (AW)
