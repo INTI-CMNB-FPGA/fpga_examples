@@ -4,24 +4,27 @@
 * Author(s):
 * * Rodrigo A. Melo
 *
-* Copyright (c) 2018 Authors and INTI
+* Copyright (c) 2018-2019 Authors and INTI
 * Distributed under the BSD 3-Clause License
 */
 
 #include "xaxidma.h"
 
+// "Width of buffer length register" in AXI DMA
+#define BITS           23 // 23 -> 8M, 26 -> 64M
+
+#define BYTES          (2**BITS-1)
+#define SAMPLES        BYTES / sizeof(data_t)
+
 #define DDR_BASE_ADDR  XPAR_PS7_DDR_0_S_AXI_BASEADDR
 #define TX_BASE_ADDR   DDR_BASE_ADDR + 0x01000000
-#define RX_BASE_ADDR   TX_BASE_ADDR + 0x00800000 // 8M
+#define RX_BASE_ADDR   TX_BASE_ADDR + 2**BITS
 
 //Select one or add your own size
 //#define data_t         u8
 //#define data_t         u16
 #define data_t         u32
 //#define data_t         u64
-
-#define BYTES          (8*1024*1024-1) // Max when "Width of buffer length register" is 23 bits
-#define SAMPLES        BYTES / sizeof(data_t)
 
 XAxiDma dma;
 
