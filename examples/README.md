@@ -12,12 +12,14 @@
   * lpddr:
 * ciaa_acc: Zynq-7000 XC7Z030, speed grade -2
   * [dma](ciaa_acc/dma) : AXI DMA in Simple Mode.
+* digilent_pynq: Zynq-7000 XC7Z020, speed grade -1
+  * [gpios](digilent_pynq/gpios): Using DIP switches and push-buttons to turn ON LEDs.
+* digilent_zedboard: Zynq-7000 XC7Z020, speed grade -1
+  * [dma](digilent_zedboard/dma) : AXI DMA in Simple Mode.
 * digilent_zybo: Zynq-7000 XC7Z010, speed grade -1
   * [axi](digilent_zybo/axi): Using the Zynq AXI Interfaces.
   * [dma](digilent_zybo/dma) : AXI DMA in Simple Mode.
   * [gpios](digilent_zybo/gpios): Using DIP switches and push-buttons to turn ON LEDs.
-* digilent_pynq: Zynq-7000 XC7Z020, speed grade -1
-  * [gpios](digilent_pynq/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * lattice_icestick:
   * [clock](lattice_icestick/clock): Using the clock source to blink LEDs.
 * lattice_breakout:
