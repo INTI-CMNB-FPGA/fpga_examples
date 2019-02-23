@@ -4,10 +4,6 @@ use ieee.numeric_std.all;
 
 entity AXIF_MASTER_DPRAM_M_AXIF is
    generic (
-      -- Users to add parameters here
-
-      -- User parameters ends
-      C_M_TARGET_SLAVE_BASE_ADDR   : std_logic_vector:= x"40000000";
       C_M_AXI_BURST_LEN    : integer:= 16;
       C_M_AXI_ID_WIDTH     : integer:= 1;
       C_M_AXI_ADDR_WIDTH   : integer:= 32;
@@ -74,13 +70,11 @@ end AXIF_MASTER_DPRAM_M_AXIF;
 
 architecture implementation of AXIF_MASTER_DPRAM_M_AXIF is
 
-   -- function called clogb2 that returns an integer which has the
-   --value of the ceiling of the log base 2
    function clogb2 (bit_depth : integer) return integer is
        variable depth  : integer := bit_depth;
        variable count  : integer := 1;
     begin
-        for clogb2 in 1 to bit_depth loop  -- Works for up to 32 bit integers
+        for clogb2 in 1 to bit_depth loop
          if (bit_depth <= 2) then
            count := 1;
          else
@@ -109,23 +103,22 @@ architecture implementation of AXIF_MASTER_DPRAM_M_AXIF is
    type state is (IDLE, INIT_WRITE, INIT_READ, INIT_COMPARE);
    signal mst_exec_state : state ;
 
-   -- AXI4FULL signals
    --AXI4 internal temp signals
-   signal axi_awaddr   : std_logic_vector(C_M_AXI_ADDR_WIDTH-1 downto 0);
-   signal axi_awvalid   : std_logic;
+   signal axi_awaddr  : std_logic_vector(C_M_AXI_ADDR_WIDTH-1 downto 0);
+   signal axi_awvalid : std_logic;
    signal axi_wdata   : std_logic_vector(C_M_AXI_DATA_WIDTH-1 downto 0);
    signal axi_wlast   : std_logic;
-   signal axi_wvalid   : std_logic;
-   signal axi_bready   : std_logic;
-   signal axi_araddr   : std_logic_vector(C_M_AXI_ADDR_WIDTH-1 downto 0);
-   signal axi_arvalid   : std_logic;
-   signal axi_rready   : std_logic;
+   signal axi_wvalid  : std_logic;
+   signal axi_bready  : std_logic;
+   signal axi_araddr  : std_logic_vector(C_M_AXI_ADDR_WIDTH-1 downto 0);
+   signal axi_arvalid : std_logic;
+   signal axi_rready  : std_logic;
    --write beat count in a burst
-   signal write_index   : std_logic_vector(C_TRANSACTIONS_NUM downto 0);
+   signal write_index : std_logic_vector(C_TRANSACTIONS_NUM downto 0);
    --read beat count in a burst
-   signal read_index   : std_logic_vector(C_TRANSACTIONS_NUM downto 0);
+   signal read_index  : std_logic_vector(C_TRANSACTIONS_NUM downto 0);
    --size of C_M_AXI_BURST_LEN length burst in bytes
-   signal burst_size_bytes   : std_logic_vector(C_TRANSACTIONS_NUM+2 downto 0);
+   signal burst_size_bytes : std_logic_vector(C_TRANSACTIONS_NUM+2 downto 0);
    --The burst counters are used to track the number of burst transfers of C_M_AXI_BURST_LEN burst length needed to transfer 2^C_MASTER_LENGTH bytes of data.
    signal write_burst_counter   : std_logic_vector(C_NO_BURSTS_REQ downto 0);
    signal read_burst_counter   : std_logic_vector(C_NO_BURSTS_REQ downto 0);
@@ -133,32 +126,20 @@ architecture implementation of AXIF_MASTER_DPRAM_M_AXIF is
    signal start_single_burst_read   : std_logic;
    signal writes_done   : std_logic;
    signal reads_done   : std_logic;
-   signal error_reg   : std_logic;
-   signal compare_done   : std_logic;
-   signal read_mismatch   : std_logic;
    signal burst_write_active   : std_logic;
    signal burst_read_active   : std_logic;
-   signal expected_rdata   : std_logic_vector(C_M_AXI_DATA_WIDTH-1 downto 0);
    --Interface response error flags
-   signal write_resp_error   : std_logic;
-   signal read_resp_error   : std_logic;
    signal wnext   : std_logic;
    signal rnext   : std_logic;
-   signal init_txn_ff   : std_logic;
-   signal init_txn_ff2   : std_logic;
-   signal init_txn_edge   : std_logic;
-   signal init_txn_pulse   : std_logic;
-
-   -- To be deleted
-   signal INIT_AXI_TXN  : std_logic;
-   signal TXN_DONE      : std_logic;
-   signal ERROR         : std_logic;
+   -- error flags
+   signal write_resp_error   : std_logic;
+   signal read_resp_error   : std_logic;
 begin
 
    --I/O Connections. Write Address (AW)
    M_AXI_AWID   <= (others => '0');
    --The AXI address is a concatenation of the target base address + active offset range
-   M_AXI_AWADDR   <= std_logic_vector( unsigned(C_M_TARGET_SLAVE_BASE_ADDR) + unsigned(axi_awaddr) );
+   M_AXI_AWADDR   <= std_logic_vector( unsigned(wr_addr_i) + unsigned(axi_awaddr) );
    --Burst LENgth is number of transaction beats, minus 1
    M_AXI_AWLEN   <= std_logic_vector( to_unsigned(C_M_AXI_BURST_LEN - 1, 8) );
    --Size should be C_M_AXI_DATA_WIDTH, in 2^SIZE bytes, otherwise narrow bursts are used
@@ -183,7 +164,7 @@ begin
    M_AXI_BREADY   <= axi_bready;
    --Read Address (AR)
    M_AXI_ARID   <= (others => '0');
-   M_AXI_ARADDR   <= std_logic_vector( unsigned( C_M_TARGET_SLAVE_BASE_ADDR ) + unsigned( axi_araddr ) );
+   M_AXI_ARADDR   <= std_logic_vector( unsigned( rd_addr_i ) + unsigned( axi_araddr ) );
    --Burst LENgth is number of transaction beats, minus 1
    M_AXI_ARLEN   <= std_logic_vector( to_unsigned(C_M_AXI_BURST_LEN - 1, 8) );
    --Size should be C_M_AXI_DATA_WIDTH, in 2^n bytes, otherwise narrow bursts are used
@@ -199,26 +180,8 @@ begin
    M_AXI_ARVALID   <= axi_arvalid;
    --Read and Read Response (R)
    M_AXI_RREADY   <= axi_rready;
-   --Example design I/O
-   TXN_DONE   <= compare_done;
    --Burst size in bytes
    burst_size_bytes   <= std_logic_vector( to_unsigned((C_M_AXI_BURST_LEN * (C_M_AXI_DATA_WIDTH/8)),C_TRANSACTIONS_NUM+3) );
-   init_txn_pulse   <= ( not init_txn_ff2)  and  init_txn_ff;
-
-   --Generate a pulse to initiate AXI transaction.
-   process(M_AXI_ACLK)
-   begin
-      if (rising_edge (M_AXI_ACLK)) then
-         -- Initiates AXI transaction delay
-         if (M_AXI_ARESETN = '0' ) then
-            init_txn_ff <= '0';
-            init_txn_ff2 <= '0';
-         else
-            init_txn_ff <= INIT_AXI_TXN;
-            init_txn_ff2 <= init_txn_ff;
-         end if;
-      end if;
-   end process;
 
    ----------------------
    --Write Address Channel
@@ -236,7 +199,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             axi_awvalid <= '0';
          else
             -- If previously not valid , start next transaction
@@ -257,7 +220,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             axi_awaddr <= (others => '0');
          else
             if (M_AXI_AWREADY= '1' and axi_awvalid = '1') then
@@ -297,7 +260,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             axi_wvalid <= '0';
          else
             if (axi_wvalid = '0' and start_single_burst_write = '1') then
@@ -320,7 +283,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             axi_wlast <= '0';
             -- axi_wlast is asserted when the write index
             -- count reaches the penultimate count to synchronize
@@ -345,7 +308,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or start_single_burst_write = '1' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_single_burst_write = '1' or start_i = '1') then
             write_index <= (others => '0');
          else
             if (wnext = '1' and (write_index /= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN-1,C_TRANSACTIONS_NUM+1)))) then
@@ -361,7 +324,7 @@ begin
       variable  sig_one : integer := 1;
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             axi_wdata <= std_logic_vector (to_unsigned(sig_one, C_M_AXI_DATA_WIDTH));
             --elsif (wnext && axi_wlast)
             --  axi_wdata <= 'b0;
@@ -388,13 +351,12 @@ begin
    --it is best not to throttle the whole data channel this way.
 
    --The BRESP bit [1] is used indicate any errors from the interconnect or
-   --slave for the entire write burst. This example will capture the error
-   --into the ERROR output.
+   --slave for the entire write burst.
 
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             axi_bready <= '0';
             -- accept/acknowledge bresp with axi_bready by the master
             -- when M_AXI_BVALID is asserted by slave
@@ -425,7 +387,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             axi_arvalid <= '0';
             -- If previously not valid , start next transaction
          else
@@ -442,7 +404,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1' ) then
+         if (M_AXI_ARESETN = '0' or start_i = '1' ) then
             axi_araddr <= (others => '0');
          else
             if (M_AXI_ARREADY = '1' and axi_arvalid = '1') then
@@ -464,7 +426,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or start_single_burst_read = '1' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_single_burst_read = '1' or start_i = '1') then
             read_index <= (others => '0');
          else
             if (rnext = '1' and (read_index <= std_logic_vector(to_unsigned(C_M_AXI_BURST_LEN-1,C_TRANSACTIONS_NUM+1)))) then
@@ -483,7 +445,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             axi_rready <= '0';
             -- accept/acknowledge rdata/rresp with axi_rready by the master
             -- when M_AXI_RVALID is asserted by slave
@@ -499,64 +461,8 @@ begin
       end if;
    end process;
 
-   --Check received read data against data generator
-   process(M_AXI_ACLK)
-   begin
-      if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
-            read_mismatch <= '0';
-            --Only check data when RVALID is active
-         else
-            if (rnext = '1' and (M_AXI_RDATA /= expected_rdata)) then
-               read_mismatch <= '1';
-            else
-               read_mismatch <= '0';
-            end if;
-         end if;
-      end if;
-   end process;
-
    --Flag any read response errors
    read_resp_error <= axi_rready and M_AXI_RVALID and M_AXI_RRESP(1);
-
-   ------------------------------------------
-   --Example design read check data generator
-   -------------------------------------------
-
-   --Generate expected read data to check against actual read data
-
-   process(M_AXI_ACLK)
-      variable  sig_one : integer := 1;
-   begin
-      if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
-            expected_rdata <= std_logic_vector (to_unsigned(sig_one, C_M_AXI_DATA_WIDTH));
-         else
-            if (M_AXI_RVALID = '1' and axi_rready = '1') then
-               expected_rdata <= std_logic_vector(unsigned(expected_rdata) + 1);
-            end if;
-         end if;
-      end if;
-   end process;
-
-   ------------------------------------
-   --Example design error register
-   ------------------------------------
-
-   --Register and hold any data mismatches, or read/write interface errors
-
-   process(M_AXI_ACLK)
-   begin
-      if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
-            error_reg <= '0';
-         else
-            if (read_mismatch = '1' or write_resp_error = '1' or read_resp_error = '1') then
-               error_reg <= '1';
-            end if;
-         end if;
-      end if;
-   end process;
 
    ----------------------------------
    --Example design throttling
@@ -587,7 +493,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             write_burst_counter <= (others => '0');
          else
             if (M_AXI_AWREADY = '1' and axi_awvalid = '1') then
@@ -604,7 +510,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             read_burst_counter <= (others => '0');
          else
             if (M_AXI_ARREADY = '1' and axi_arvalid = '1') then
@@ -623,28 +529,18 @@ begin
             -- reset condition
             -- All the signals are ed default values under reset condition
             mst_exec_state     <= IDLE;
-            compare_done       <= '0';
             start_single_burst_write <= '0';
             start_single_burst_read  <= '0';
-            ERROR <= '0';
          else
             -- state transition
             case (mst_exec_state) is
                when IDLE =>
-                  -- This state is responsible to initiate
-                  -- AXI transaction when init_txn_pulse is asserted
-                  if ( init_txn_pulse = '1') then
+                  if start_i = '1' then
                      mst_exec_state  <= INIT_WRITE;
-                     ERROR <= '0';
-                     compare_done <= '0';
                   else
                     mst_exec_state  <= IDLE;
                   end if;
                when INIT_WRITE =>
-                  -- This state is responsible to issue start_single_write pulse to
-                  -- initiate a write transaction. Write transactions will be
-                  -- issued until burst_write_active signal is asserted.
-                  -- write controller
                   if (writes_done = '1') then
                      mst_exec_state <= INIT_READ;
                   else
@@ -652,14 +548,10 @@ begin
                      if (axi_awvalid = '0' and start_single_burst_write = '0' and burst_write_active = '0' ) then
                         start_single_burst_write <= '1';
                      else
-                        start_single_burst_write <= '0'; --Negate to generate a pulse
+                        start_single_burst_write <= '0';
                      end if;
                   end if;
                when INIT_READ =>
-                  -- This state is responsible to issue start_single_read pulse to
-                  -- initiate a read transaction. Read transactions will be
-                  -- issued until burst_read_active signal is asserted.
-                  -- read controller
                   if (reads_done = '1') then
                      mst_exec_state <= INIT_COMPARE;
                   else
@@ -667,16 +559,11 @@ begin
                      if (axi_arvalid = '0' and burst_read_active = '0' and start_single_burst_read = '0') then
                         start_single_burst_read <= '1';
                      else
-                        start_single_burst_read <= '0'; --Negate to generate a pulse
+                        start_single_burst_read <= '0';
                      end if;
                   end if;
                when INIT_COMPARE =>
-                  -- This state is responsible to issue the state of comparison
-                  -- of written data with the read data. If no error flags are set,
-                  -- compare_done signal will be asseted to indicate success.
-                  ERROR <= error_reg ;
                   mst_exec_state <= IDLE;
-                  compare_done <= '1';
                when others  =>
                   mst_exec_state  <= IDLE;
             end case  ;
@@ -690,7 +577,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             burst_write_active <= '0';
             --The burst_write_active is asserted when a write burst transaction is initiated
          else
@@ -712,7 +599,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             writes_done <= '0';
             --The reads_done should be associated with a rready response
            --elsif (M_AXI_RVALID && axi_rready && (read_burst_counter == {(C_NO_BURSTS_REQ-1){1}}) && axi_rlast)
@@ -730,7 +617,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             burst_read_active <= '0';
             --The burst_write_active is asserted when a write burst transaction is initiated
          else
@@ -752,7 +639,7 @@ begin
    process(M_AXI_ACLK)
    begin
       if (rising_edge (M_AXI_ACLK)) then
-         if (M_AXI_ARESETN = '0' or init_txn_pulse = '1') then
+         if (M_AXI_ARESETN = '0' or start_i = '1') then
             reads_done <= '0';
            --The reads_done should be associated with a rready response
            --elsif (M_AXI_RVALID && axi_rready && (read_burst_counter == {(C_NO_BURSTS_REQ-1){1}}) && axi_rlast)
@@ -763,9 +650,5 @@ begin
          end if;
       end if;
    end process;
-
-   -- Add user logic here
-
-   -- User logic ends
 
 end implementation;
