@@ -10,23 +10,10 @@
   * [clock](avnet_s6micro/clock): Using the clock sources to blink LEDs.
   * [gpios](avnet_s6micro/gpios): Using DIP switches and push-buttons to turn ON LEDs.
   * lpddr:
-<<<<<<< HEAD
-* ciaa_acc: Zynq-7000 XC7Z030, speed grade -2
-  * [dma](ciaa_acc/dma/README.md) : AXI DMA in Simple Mode.
-  * [ddr](ciaa_acc/ddr_test/README.md) : DDR write/read coherency test.
-* digilent_zybo: Zynq-7000 XC7Z010, speed grade -1
-  * [gpios](digilent_zybo/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-  * [dma](digilent_zybo/dma/README.md)    : AXI DMA in Simple Mode.
-* digilent_pynq: Zynq-7000 XC7Z020, speed grade -1
-  * [gpios](digilent_pynq/gpios/README.md): Using DIP switches and push-buttons to turn ON LEDs.
-* lattice_icestick:
-  * [clock](lattice_icestick/clock/README.md): Using the clock source to blink LEDs.
-* lattice_breakout:
-  * [clock](lattice_breakout/clock/README.md): Using the clock source to blink LEDs.
-* microsemi_m2s090ts: SmartFusion2 090TS
-=======
 * [ciaa_acc](ciaa_acc): Zynq-7000 XC7Z030, speed grade -2
   * [dma](ciaa_acc/dma) : AXI DMA in Simple Mode.
+  * [ddr](ciaa_acc/ddr_test) : DDR write/read coherency test.
+  * [gpios](ciaa_acc/gpio_emio) : GPIO example using EMIO mapped to CIAA-ACC outputs.
 * [digilent_pynq](digilent_pynq): Zynq-7000 XC7Z020, speed grade -1
   * [gpios](digilent_pynq/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * [digilent_zedboard](digilent_zedboard): Zynq-7000 XC7Z020, speed grade -1
@@ -40,7 +27,6 @@
 * [lattice_breakout](lattice_breakout):
   * [clock](lattice_breakout/clock): Using the clock source to blink LEDs.
 * [microsemi_m2s090ts](microsemi_m2s090ts): SmartFusion2 090TS
->>>>>>> eafd458f62037a1130cbfe581f00c1324511d839
   * clock:
   * epcs:
   * [gpios](microsemi_m2s090ts/gpios): Using DIP switches and push-buttons to turn ON LEDs.
