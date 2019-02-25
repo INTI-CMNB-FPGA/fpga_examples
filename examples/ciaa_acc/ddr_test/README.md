@@ -22,7 +22,7 @@ $ . /PATH_TO_VIVADO/settings64.sh
   * OS Platform: standalone
   * Template: Hello World
 * Replace `helloworld.c` content with code from:
-  * Simple Mode by Interrupts: `<ROOT>/shared/zynq7000/ddrtest.c`
+  * `<ROOT>/shared/zynq7000/ddr_test.c`
 * Transfer the bitstream to the FPGA.
 * Configure SDK terminal (or another terminal program) with the needed Port to see UART Output (print) on Debug USB physical port.
 * Rigth Click over created project on SDK project explorer -> Run As -> Launch on hardware.
