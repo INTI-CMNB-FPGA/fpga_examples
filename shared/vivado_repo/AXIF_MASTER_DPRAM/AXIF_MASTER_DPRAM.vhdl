@@ -4,10 +4,11 @@ use ieee.numeric_std.all;
 
 entity AXIF_MASTER_DPRAM is
    generic (
+      C_NO_WRITE_RESPONSE   : boolean:= FALSE;
+      C_AxCACHE             : std_logic_vector(3 downto 0) := "0010";
       -- Parameters of Axi Slave Bus Interface S_AXIL
       C_S_AXIL_ADDR_WIDTH   : integer   := 4;
       -- Parameters of Axi Master Bus Interface M_AXIF
-      C_M_AXIF_BURST_LEN    : integer   := 16;
       C_M_AXIF_ID_WIDTH     : integer   := 1;
       C_M_AXIF_AWUSER_WIDTH : integer   := 1;
       C_M_AXIF_ARUSER_WIDTH : integer   := 1;
@@ -133,7 +134,8 @@ begin
 
    M_AXIF_inst : entity work.AXIF_MASTER_DPRAM_M_AXIF
    generic map (
-      C_M_AXI_BURST_LEN    => C_M_AXIF_BURST_LEN,
+      C_NO_WRITE_RESPONSE  => C_NO_WRITE_RESPONSE,
+      C_AxCACHE            => C_AxCACHE,
       C_M_AXI_ID_WIDTH     => C_M_AXIF_ID_WIDTH,
       C_M_AXI_ADDR_WIDTH   => 32,
       C_M_AXI_DATA_WIDTH   => 32,
