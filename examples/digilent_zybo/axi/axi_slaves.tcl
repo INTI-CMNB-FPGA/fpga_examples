@@ -199,7 +199,7 @@ proc create_root_design { parentCell } {
   # Create instance: AXIF_MASTER_DPRAM_0, and set properties
   set AXIF_MASTER_DPRAM_0 [ create_bd_cell -type ip -vlnv user.org:user:AXIF_MASTER_DPRAM:1.0 AXIF_MASTER_DPRAM_0 ]
   set_property -dict [ list \
-   CONFIG.C_AxCACHE {"0011"} \
+   CONFIG.C_AxCACHE {"0010"} \
  ] $AXIF_MASTER_DPRAM_0
 
   # Create instance: AXIF_MASTER_DPRAM_1, and set properties
