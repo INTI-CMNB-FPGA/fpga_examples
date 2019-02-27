@@ -12,6 +12,9 @@
   * lpddr:
 * [ciaa_acc](ciaa_acc): Zynq-7000 XC7Z030, speed grade -2
   * [dma](ciaa_acc/dma) : AXI DMA in Simple Mode.
+  * [ddr](ciaa_acc/ddr_test) : DDR write/read coherency test.
+  * [clock](ciaa_acc/clock) : Using the clock source to blink LEDs.
+  * [gpios](ciaa_acc/gpio_emio) : GPIO example using EMIO mapped to CIAA-ACC outputs.
 * [digilent_pynq](digilent_pynq): Zynq-7000 XC7Z020, speed grade -1
   * [gpios](digilent_pynq/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * [digilent_zedboard](digilent_zedboard): Zynq-7000 XC7Z020, speed grade -1
