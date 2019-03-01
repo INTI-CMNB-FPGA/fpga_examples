@@ -14,7 +14,7 @@
 #include "xtime_l.h"    // to use Xtime_GetTime
 #include "xil_cache.h"  // to use Xil_DCacheFlushRange
 
-#define MEMORY_DEPTH    2048
+#define MEMORY_DEPTH    2048//16*11//2048
 
 //int src[MEMORY_DEPTH] __attribute__ ((aligned (32)));
 //int dst[MEMORY_DEPTH] __attribute__ ((aligned (32)));

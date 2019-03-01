@@ -76,7 +76,7 @@ architecture implementation of AXIF_MASTER_DPRAM_M_AXIF is
    constant C_BURST_BYTES     : natural := C_M_AXI_BURST_LEN * C_M_AXI_DATA_WIDTH/8;
 
    type state_t is ( IDLE, INIT_WRITE, INIT_READ);
-   signal state : state_t;
+   signal rd_state, wr_state : state_t;
 
    signal axi_awaddr  : std_logic_vector(C_M_AXI_ADDR_WIDTH-1 downto 0);
    signal axi_awvalid : std_logic;
@@ -294,6 +294,8 @@ begin
      end if;
    end process;
 
+   -- Application
+
    process(M_AXI_ACLK)
    begin
      if rising_edge (M_AXI_ACLK) then
@@ -324,24 +326,23 @@ begin
      end if;
    end process;
 
-   busy_o <= '1' when state /= IDLE else '0';
+   busy_o <= '1' when wr_state /= IDLE else '0';
 
-   MASTER_EXECUTION_PROC:process(M_AXI_ACLK)
+   read_proc : process(M_AXI_ACLK)
    begin
       if rising_edge (M_AXI_ACLK) then
          if M_AXI_ARESETN = '0' then
-            state <= IDLE;
-            wr_burst_start <= '0';
+            rd_state <= IDLE;
             rd_burst_start  <= '0';
          else
-            case state is
+            case rd_state is
                when IDLE =>
                     if start_i = '1' then
-                       state <= INIT_READ;
+                       rd_state <= INIT_READ;
                     end if;
                when INIT_READ =>
                     if rd_done = '1' then
-                       state <= INIT_WRITE;
+                       rd_state <= IDLE;
                     else
                        if axi_arvalid = '0' and rd_burst_active = '0' and rd_burst_start = '0' then
                           rd_burst_start <= '1';
@@ -349,18 +350,43 @@ begin
                           rd_burst_start <= '0';
                        end if;
                     end if;
+               when others =>
+                    rd_state <= IDLE;
+            end case;
+         end if;
+      end if;
+   end process;
+
+   write_proc : process(M_AXI_ACLK)
+   begin
+      if rising_edge (M_AXI_ACLK) then
+         if M_AXI_ARESETN = '0' then
+            wr_state <= IDLE;
+            wr_burst_start <= '0';
+         else
+            case wr_state is
+               when IDLE =>
+                    if start_i = '1' then
+                       wr_state <= INIT_READ;
+                    end if;
+               when INIT_READ =>
+                    if ram_rd_addr > 15 then
+                       wr_state <= INIT_WRITE;
+                    end if;
                when INIT_WRITE =>
                     if wr_done = '1' then
-                       state <= IDLE;
+                       wr_state <= IDLE;
                     else
-                       if axi_awvalid = '0' and wr_burst_start = '0' and wr_burst_active = '0' then
-                          wr_burst_start <= '1';
-                       else
-                          wr_burst_start <= '0';
+                       if ram_rd_addr-ram_wr_addr > 15 or ram_rd_addr < ram_wr_addr then
+                          if axi_awvalid = '0' and wr_burst_start = '0' and wr_burst_active = '0' then
+                             wr_burst_start <= '1';
+                          else
+                             wr_burst_start <= '0';
+                          end if;
                        end if;
                     end if;
                when others =>
-                    state <= IDLE;
+                    wr_state <= IDLE;
             end case;
          end if;
       end if;
@@ -426,13 +452,17 @@ begin
 
    read_p:
    process (M_AXI_ACLK)
+      --variable aux : unsigned(31 downto 0);
    begin
       if rising_edge(M_AXI_ACLK) then
          if (M_AXI_ARESETN = '0' or start_i = '1') then
             ram_rd_addr  <= (others => '0');
+            --aux          := (others => '0');
          else
             if rd_next='1' then
-               ram(to_integer(ram_rd_addr)) <= M_AXI_RDATA; 
+               --ram(to_integer(ram_rd_addr)) <= std_logic_vector(aux);
+               --aux := aux + 1;
+               ram(to_integer(ram_rd_addr)) <= M_AXI_RDATA;
                ram_rd_addr <= ram_rd_addr + 1;
             end if;
          end if;
@@ -441,13 +471,16 @@ begin
 
    write_p:
    process (M_AXI_ACLK)
+      --variable aux : unsigned(31 downto 0);
    begin
       if rising_edge(M_AXI_ACLK) then
          if (M_AXI_ARESETN = '0' or start_i = '1') then
             ram_wr_addr  <= (others => '0');
+            --aux          := (others => '0');
          else
             if wr_next='1' then
                axi_wdata <= ram(to_integer(ram_wr_addr));
+               --aux := aux + 1;
                ram_wr_addr <= ram_wr_addr + 1;
             end if;
          end if;
