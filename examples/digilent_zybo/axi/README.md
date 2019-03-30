@@ -16,6 +16,8 @@ In the axi_slaves project, there are three individual examples about how to use 
 $ . /PATH_TO_VIVADO/settings64.sh
 ```
 * Open Vivado and create a new proyect for: Zybo.
+* Go to Settings -> IP -> Repository
+  * Add `<FPGA_EXAMPLES>/shared/vivado_repo`
 * In Tcl Console, run (block designs generated with Vivado 2018.2):
   * For M_AXI_GP: `source <PATH>/axi_master.tcl`
   * For S_AXI_GP, S_AXI_ACP, S_AXI_HP: `source <PATH>/axi_slaves.tcl`
