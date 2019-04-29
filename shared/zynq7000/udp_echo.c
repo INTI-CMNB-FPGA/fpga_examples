@@ -5,22 +5,63 @@
 #include "xil_printf.h"
 #include "lwip/init.h"
 #include "lwip/inet.h"
+#include "lwip/sockets.h"
 
 static int complete_nw_thread;
 
-void start_application();
-
 #define THREAD_STACKSIZE 1024
 
-#define IP_ADDRESS "192.168.1.10"
+#define IP_ADDRESS "192.168.0.10"
 #define IP_MASK    "255.255.255.0"
-#define GW_ADDRESS "192.168.1.1"
+#define GW_ADDRESS "192.168.0.1"
 #define CONN_PORT  1000
+
+#define BUFSIZE    100
 
 struct netif server_netif;
 
 /* Application */
 
+static void udp_recv_perf_traffic(int sock) {
+   int i, count;
+   int buf[BUFSIZE];
+   struct sockaddr_in from;
+   socklen_t fromlen = sizeof(from);
+   xil_printf("Awaiting UDP connections\n");
+   while (1) {
+      if ((count = lwip_recvfrom(sock, buf, BUFSIZE, 0,(struct sockaddr *)&from, &fromlen)) <= 0) {
+    	  xil_printf("No\n");
+         continue;
+      }
+      count /= sizeof(int);
+      xil_printf("Samples: %d - Index: %d\n", buf[0], buf[1]);
+   }
+}
+
+void application(void) {
+   err_t err;
+   int sock;
+   struct sockaddr_in addr;
+
+   if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
+      xil_printf("UDP server: Error creating Socket\r\n");
+      return;
+   }
+
+   memset(&addr, 0, sizeof(struct sockaddr_in));
+   addr.sin_family = AF_INET;
+   addr.sin_port = htons(CONN_PORT);
+   addr.sin_addr.s_addr = htonl(INADDR_ANY);
+
+   err = bind(sock, (struct sockaddr *)&addr, sizeof(addr));
+   if (err != ERR_OK) {
+      xil_printf("UDP server: Error on bind: %d\r\n", err);
+      close(sock);
+      return;
+   }
+
+   udp_recv_perf_traffic(sock);
+}
 
 /* Configs */
 
@@ -30,9 +71,11 @@ static void assign_default_ip(ip_addr_t *ip, ip_addr_t *mask, ip_addr_t *gw) {
    err = inet_aton(IP_ADDRESS, ip);
    if(!err)
       xil_printf("Invalid IP address: %d\r\n", err);
+   xil_printf("Configuring MASK %s \r\n", IP_MASK);
    err = inet_aton(IP_MASK, mask);
    if(!err)
       xil_printf("Invalid IP MASK: %d\r\n", err);
+   xil_printf("Configuring GW %s \r\n", GW_ADDRESS);
    err = inet_aton(GW_ADDRESS, gw);
    if(!err)
       xil_printf("Invalid GW address: %d\r\n", err);
@@ -73,7 +116,7 @@ int main_thread() {
 
    assign_default_ip(&(server_netif.ip_addr), &(server_netif.netmask), &(server_netif.gw));
 
-   start_application();
+   application();
 
    vTaskDelete(NULL);
    return 0;
