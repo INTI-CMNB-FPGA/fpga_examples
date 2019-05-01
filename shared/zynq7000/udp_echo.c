@@ -18,30 +18,23 @@ static int complete_nw_thread;
 
 #define BUFSIZE    100
 
+#define DDR_BASE_ADDR  XPAR_PS7_DDR_0_S_AXI_BASEADDR
+#define BUFFER_ADDR    DDR_BASE_ADDR + 0x01000000
+
 struct netif server_netif;
 
 /* Application */
 
-static void udp_recv_perf_traffic(int sock) {
-   int i, count;
-   int buf[BUFSIZE];
-   struct sockaddr_in from;
-   socklen_t fromlen = sizeof(from);
-   xil_printf("Awaiting UDP connections\n");
-   while (1) {
-      if ((count = lwip_recvfrom(sock, buf, BUFSIZE, 0,(struct sockaddr *)&from, &fromlen)) <= 0) {
-    	  xil_printf("No\n");
-         continue;
-      }
-      count /= sizeof(int);
-      xil_printf("Samples: %d - Index: %d\n", buf[0], buf[1]);
-   }
-}
-
 void application(void) {
    err_t err;
    int sock;
+   int i, count, samples, index;
+   int param[2];
    struct sockaddr_in addr;
+   socklen_t addrlen = sizeof(addr);
+   int *buf;
+
+   buf = (int *)BUFFER_ADDR;
 
    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
       xil_printf("UDP server: Error creating Socket\r\n");
@@ -60,7 +53,20 @@ void application(void) {
       return;
    }
 
-   udp_recv_perf_traffic(sock);
+   xil_printf("Awaiting UDP connections\n");
+
+   while (1) {
+      if ((count = lwip_recvfrom(sock, param, 2 * sizeof(int), 0,(struct sockaddr *)&addr, &addrlen)) <= 0)
+         continue;
+      samples = param[0];
+      index   = param[1];
+      xil_printf("Samples: %d - Index: %d\n", samples, index);
+      for (i = 0; i < samples; i++) buf[i] = i + index;
+      //for (i = 0; i < samples; i++) xil_printf("%d\n", buf[i]);
+      if ((count = sendto(sock, buf, samples*sizeof(int), 0, (struct sockaddr *)&addr, addrlen)) < 0) {
+         xil_printf("Error in write (%d)\n", count);
+      }
+   }
 }
 
 /* Configs */

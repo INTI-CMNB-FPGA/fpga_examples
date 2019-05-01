@@ -118,26 +118,26 @@ s.send(tx_buf)
 
 #fp = open(filename+".txt", "w")
 
-#awaited = index
-#while samples > 0:
-#   if samples > RECV_SIZE:
-#      qty = RECV_SIZE
-#   else:
-#      qty = samples
-#   rx_buf = s.recv(qty*4)
-#   for i in range (0,qty):
-#       index = i*4
-#       try:
-#          rx_val = str(unpack("i",rx_buf[index:index+4])[0])
-#          if rx_val != str(awaited):
-#             print("Missmatch: %s (RX) != %s (Awaited)" % (rx_val, str(awaited)));
-#          awaited +=1
-#       except:
-#          print("Not enought samples received (%i were lost). Please try again." % (samples - i))
-#          s.close()
-#          exit()
-#       fp.write("%s\n" % (rx_val))
-#   samples = samples - qty
+awaited = index
+while samples > 0:
+   if samples > RECV_SIZE:
+      qty = RECV_SIZE
+   else:
+      qty = samples
+   rx_buf = s.recv(qty*4)
+   for i in range (0,qty):
+       index = i*4
+       try:
+          rx_val = str(unpack("i",rx_buf[index:index+4])[0])
+          if rx_val != str(awaited):
+             print("Missmatch: %s (RX) != %s (Awaited)" % (rx_val, str(awaited)));
+          awaited +=1
+       except:
+          print("Not enought samples received (%i were lost). Please try again." % (samples - i))
+          s.close()
+          exit()
+       fp.write("%s\n" % (rx_val))
+   samples = samples - qty
 
 s.close()
 #fp.close()
