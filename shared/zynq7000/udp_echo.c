@@ -66,6 +66,7 @@ void application(void) {
       if ((count = sendto(sock, buf, samples*sizeof(int), 0, (struct sockaddr *)&addr, addrlen)) < 0) {
          xil_printf("Error in write (%d)\n", count);
       }
+      xil_printf("%d samples were sent\n", samples);
    }
 }
 

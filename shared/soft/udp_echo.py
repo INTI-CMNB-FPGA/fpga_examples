@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# eth_echo
+# udp_echo
 # Copyright (C) 2018-2019 INTI
 # Copyright (C) 2018-2019 Rodrigo A. Melo
 #
@@ -20,14 +20,14 @@
 import socket, argparse, re, time
 from struct import *
 
-RECV_SIZE = 512
+RECV_SIZE = 1024
 
 ###################################################################################################
 # Parsing the command line
 ###################################################################################################
 
 parser = argparse.ArgumentParser(
-   prog        = 'eth_echo',
+   prog        = 'udp_echo',
    description = ''
 )
 
@@ -45,11 +45,6 @@ parser.add_argument(
    type        = int,
    help        = ''
 )
-
-#parser.add_argument(
-#   '--foobar',
-#   action='store_true'
-#)
 
 parser.add_argument(
    '-f', '--filename',
@@ -106,38 +101,53 @@ print("Samples: %s" % (str(samples)))
 print("Index:   %s" % (str(index)))
 
 try:
-   s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)#STREAM)
-   s.connect((ip_addr, port))
+   s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 except:
    print("Connection refused")
    exit()
 
+print("Sending parameters")
+
 tx_buf  = pack("i",samples)
 tx_buf += pack("i",index)
-s.send(tx_buf)
+s.sendto(tx_buf, (ip_addr, port))
 
-#fp = open(filename+".txt", "w")
+print("Waiting for data")
 
-awaited = index
-while samples > 0:
-   if samples > RECV_SIZE:
-      qty = RECV_SIZE
-   else:
-      qty = samples
-   rx_buf = s.recv(qty*4)
-   for i in range (0,qty):
-       index = i*4
-       try:
-          rx_val = str(unpack("i",rx_buf[index:index+4])[0])
-          if rx_val != str(awaited):
-             print("Missmatch: %s (RX) != %s (Awaited)" % (rx_val, str(awaited)));
-          awaited +=1
-       except:
-          print("Not enought samples received (%i were lost). Please try again." % (samples - i))
-          s.close()
-          exit()
-       fp.write("%s\n" % (rx_val))
-   samples = samples - qty
+fp = open(filename+".txt", "w")
 
+rx_buf = s.recvfrom(samples*4)[0]
+for i in range (0,samples):
+    index = i*4
+    try:
+       rx_val = str(unpack("i",rx_buf[index:index+4])[0])
+    except:
+       print("Not enought samples received (%i were lost). Please try again." % (samples - i))
+       s.close()
+       exit()
+    print("%s" % (rx_val))
+
+#awaited = index
+#while samples > 0:
+#   if samples > RECV_SIZE:
+#      qty = RECV_SIZE
+#   else:
+#      qty = samples
+#   rx_buf = s.recvfrom(qty*4)[0]
+#   for i in range (0,qty):
+#       index = i*4
+#       try:
+#          rx_val = str(unpack("i",rx_buf[index:index+4])[0])
+#          if rx_val != str(awaited):
+#             print("Missmatch: %s (RX) != %s (Awaited)" % (rx_val, str(awaited)));
+#          awaited +=1
+#       except:
+#          print("Not enought samples received (%i were lost). Please try again." % (samples - i))
+#          s.close()
+#          exit()
+#       fp.write("%s\n" % (rx_val))
+#   samples = samples - qty
+
+print("Done")
 s.close()
-#fp.close()
+fp.close()
