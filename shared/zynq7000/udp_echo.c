@@ -16,10 +16,10 @@ static int complete_nw_thread;
 #define GW_ADDRESS "192.168.0.1"
 #define CONN_PORT  1000
 
-#define BUFSIZE    100
-
 #define DDR_BASE_ADDR  XPAR_PS7_DDR_0_S_AXI_BASEADDR
 #define BUFFER_ADDR    DDR_BASE_ADDR + 0x01000000
+
+#define UDP_SAMPLES_PER_SEND 1024
 
 struct netif server_netif;
 
@@ -28,13 +28,11 @@ struct netif server_netif;
 void application(void) {
    err_t err;
    int sock;
-   int i, count, samples, index;
+   int i, count, samples, index, sent;
    int param[2];
    struct sockaddr_in addr;
    socklen_t addrlen = sizeof(addr);
    int *buf;
-
-   buf = (int *)BUFFER_ADDR;
 
    if ((sock = socket(AF_INET, SOCK_DGRAM, 0)) < 0) {
       xil_printf("UDP server: Error creating Socket\r\n");
@@ -61,12 +59,25 @@ void application(void) {
       samples = param[0];
       index   = param[1];
       xil_printf("Samples: %d - Index: %d\n", samples, index);
+      buf = (int *)BUFFER_ADDR;
       for (i = 0; i < samples; i++) buf[i] = i + index;
-      //for (i = 0; i < samples; i++) xil_printf("%d\n", buf[i]);
-      if ((count = sendto(sock, buf, samples*sizeof(int), 0, (struct sockaddr *)&addr, addrlen)) < 0) {
-         xil_printf("Error in write (%d)\n", count);
+      sent = 0;
+      while (samples) {
+         if (samples > UDP_SAMPLES_PER_SEND) {
+            if ((count = sendto(sock, buf, UDP_SAMPLES_PER_SEND*sizeof(int), 0, (struct sockaddr *)&addr, addrlen)) < 0) {
+               xil_printf("Error in write (%d)\n", count);
+            }
+            samples -= UDP_SAMPLES_PER_SEND;
+         } else {
+           if ((count = sendto(sock, buf, samples*sizeof(int), 0, (struct sockaddr *)&addr, addrlen)) < 0) {
+              xil_printf("Error in write (%d)\n", count);
+           }
+           samples = 0;
+         }
+         buf = (int *)buf + UDP_SAMPLES_PER_SEND;
+         sent += (count / sizeof(int));
       }
-      xil_printf("%d samples were sent\n", samples);
+      xil_printf("%d samples were sent\n", sent);
    }
 }
 

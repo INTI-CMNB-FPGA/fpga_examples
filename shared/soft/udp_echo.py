@@ -20,7 +20,7 @@
 import socket, argparse, re, time
 from struct import *
 
-RECV_SIZE = 1024
+UDP_SAMPLES_PER_READ = 1024
 
 ###################################################################################################
 # Parsing the command line
@@ -116,37 +116,29 @@ print("Waiting for data")
 
 fp = open(filename+".txt", "w")
 
-rx_buf = s.recvfrom(samples*4)[0]
-for i in range (0,samples):
-    index = i*4
-    try:
-       rx_val = str(unpack("i",rx_buf[index:index+4])[0])
-    except:
-       print("Not enought samples received (%i were lost). Please try again." % (samples - i))
-       s.close()
-       exit()
-    print("%s" % (rx_val))
-
-#awaited = index
-#while samples > 0:
-#   if samples > RECV_SIZE:
-#      qty = RECV_SIZE
-#   else:
-#      qty = samples
-#   rx_buf = s.recvfrom(qty*4)[0]
+awaited = index
+while samples:
+   if samples > UDP_SAMPLES_PER_READ:
+      qty = UDP_SAMPLES_PER_READ
+   else:
+      qty = samples
+   rx_buf = s.recvfrom(qty*4)[0]
+   awaited += len(rx_buf)/4
 #   for i in range (0,qty):
 #       index = i*4
 #       try:
-#          rx_val = str(unpack("i",rx_buf[index:index+4])[0])
-#          if rx_val != str(awaited):
-#             print("Missmatch: %s (RX) != %s (Awaited)" % (rx_val, str(awaited)));
+##          rx_val = str(unpack("i",rx_buf[index:index+4])[0])
+##          if rx_val != str(awaited):
+##             print("Missmatch: %s (RX) != %s (Awaited)" % (rx_val, str(awaited)))
 #          awaited +=1
+#          print(awaited)
 #       except:
 #          print("Not enought samples received (%i were lost). Please try again." % (samples - i))
 #          s.close()
 #          exit()
-#       fp.write("%s\n" % (rx_val))
-#   samples = samples - qty
+##       fp.write("%s\n" % (rx_val))
+   samples = samples - qty
+print(awaited)
 
 print("Done")
 s.close()
