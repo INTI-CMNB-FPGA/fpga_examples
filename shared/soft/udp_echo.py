@@ -106,39 +106,39 @@ except:
    print("Connection refused")
    exit()
 
+s.settimeout(1.0)
+
 print("Sending parameters")
 
 tx_buf  = pack("i",samples)
 tx_buf += pack("i",index)
 s.sendto(tx_buf, (ip_addr, port))
 
-print("Waiting for data")
+print("Waiting for data...")
 
 fp = open(filename+".txt", "w")
 
-awaited = index
+rx_buf = bytearray()
 while samples:
    if samples > UDP_SAMPLES_PER_READ:
       qty = UDP_SAMPLES_PER_READ
    else:
       qty = samples
-   rx_buf = s.recvfrom(qty*4)[0]
-   awaited += len(rx_buf)/4
-#   for i in range (0,qty):
-#       index = i*4
-#       try:
-##          rx_val = str(unpack("i",rx_buf[index:index+4])[0])
-##          if rx_val != str(awaited):
-##             print("Missmatch: %s (RX) != %s (Awaited)" % (rx_val, str(awaited)))
-#          awaited +=1
-#          print(awaited)
-#       except:
-#          print("Not enought samples received (%i were lost). Please try again." % (samples - i))
-#          s.close()
-#          exit()
-##       fp.write("%s\n" % (rx_val))
+   try:
+      rx_buf.extend(s.recvfrom(qty*4)[0])
+   except:
+      print("ERROR: RX TimeOut (%d missing samples). Please, try again." % (samples))
+      exit()
    samples = samples - qty
-print(awaited)
+
+print("Data received, processing...")
+
+for aux in iter_unpack("i", rx_buf):
+    data = aux[0]
+    if index != data:
+       print("ERROR: received (%d) != awaited (%d)" % (data, index))
+    index+=1
+    fp.write("%d\n" % (data))
 
 print("Done")
 s.close()
