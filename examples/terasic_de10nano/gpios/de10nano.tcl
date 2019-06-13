@@ -1,0 +1,16 @@
+set_location_assignment PIN_W20  -to dips_i[3]
+set_location_assignment PIN_W21  -to dips_i[2]
+set_location_assignment PIN_W24  -to dips_i[1]
+set_location_assignment PIN_Y24  -to dips_i[0]
+
+set_location_assignment PIN_AA23 -to leds_o[7]
+set_location_assignment PIN_Y16  -to leds_o[6]
+set_location_assignment PIN_AE26 -to leds_o[5]
+set_location_assignment PIN_AF26 -to leds_o[4]
+set_location_assignment PIN_V15  -to leds_o[3]
+set_location_assignment PIN_V16  -to leds_o[2]
+set_location_assignment PIN_AA24 -to leds_o[1]
+set_location_assignment PIN_W15  -to leds_o[0]
+
+set_location_assignment PIN_AH16 -to pbs_i[1]
+set_location_assignment PIN_AH17 -to pbs_i[0]
