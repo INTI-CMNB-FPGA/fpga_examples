@@ -34,7 +34,7 @@
 * [terasic_de0nano](terasic_de0nano): Cyclone IV E, grade 6
   * [clock](terasic_de0nano/clock): Using the clock source to blink LEDs.
   * [gpios](terasic_de0nano/gpios): Using DIP switches and push-buttons to turn ON LEDs.
-* [terasic_de0nano](terasic_de10nano): Cyclone V SE
+* [terasic_de10nano](terasic_de10nano): Cyclone V SE
   * [clock](terasic_de10nano/clock): Using the clock sources to blink LEDs.
   * [gpios](terasic_de10nano/gpios): Using DIP switches and push-buttons to turn ON LEDs.
 * [xilinx_sp601](xilinx_sp601): Spartan-6 LX 16, speed grade -2
