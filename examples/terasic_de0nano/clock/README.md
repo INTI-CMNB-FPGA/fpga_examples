@@ -1,6 +1,6 @@
 # Description
 
-There are one clock source on DE0-Nano board:
+There is one clock source on DE0-Nano board:
 * On-board 50 MHz oscillator.
 This example is about on-board clock source. It is used to blink the 8 leds.
 Push Button KEY1 is used as Reset to stop and restart blink cycle.

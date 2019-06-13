@@ -1,5 +1,5 @@
 --
--- GPIOs on DE0-Nano
+-- GPIOs on DE10-Nano
 --
 -- Author(s):
 -- * Rodrigo A. Melo

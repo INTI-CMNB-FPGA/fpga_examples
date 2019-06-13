@@ -20,5 +20,5 @@ $ make prog
 
 * Change DIP switches and pushbuttons (KEY0 and KEY1) to see how the LEDs changes its state.
 * KEY0 drives LED4 and LED6 (not LED4).
-* KEY0 drives LED5 and LED7 (not LED5).
+* KEY1 drives LED5 and LED7 (not LED5).
 * DIP switches drives LED0..3.
