@@ -1,6 +1,6 @@
 #!/usr/bin/python
 #
-# udp_echo
+# eth_echo
 # Copyright (C) 2018-2019 INTI
 # Copyright (C) 2018-2019 Rodrigo A. Melo
 #
@@ -20,14 +20,14 @@
 import socket, argparse, re, time
 from struct import *
 
-UDP_SAMPLES_PER_READ = 1024
+SAMPLES_PER_READ = 1024
 
 ###################################################################################################
 # Parsing the command line
 ###################################################################################################
 
 parser = argparse.ArgumentParser(
-   prog        = 'udp_echo',
+   prog        = 'eth_echo',
    description = ''
 )
 
@@ -44,6 +44,11 @@ parser.add_argument(
    default     = '1000',
    type        = int,
    help        = ''
+)
+
+parser.add_argument(
+   '-u', '--udp',
+    action     ='store_true'
 )
 
 parser.add_argument(
@@ -94,6 +99,7 @@ port     = options.port
 filename = options.filename
 samples  = getInt(options.samples)
 index    = options.index
+is_udp   = options.udp
 
 print("Address: %s" % (ip_addr))
 print("Port:    %s" % (port))
@@ -101,9 +107,14 @@ print("Samples: %s" % (str(samples)))
 print("Index:   %s" % (str(index)))
 
 try:
-   s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+   if is_udp:
+      s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+   else:
+      s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      s.connect((ip_addr, port))
 except:
    print("Connection refused")
+   print("HINTS: check the IP address, the port and the socket type (TCP or UDP).")
    exit()
 
 s.settimeout(1.0)
@@ -112,7 +123,10 @@ print("Sending parameters")
 
 tx_buf  = pack("i",samples)
 tx_buf += pack("i",index)
-s.sendto(tx_buf, (ip_addr, port))
+if is_udp:
+   s.sendto(tx_buf, (ip_addr, port))
+else:
+   s.send(tx_buf)
 
 print("Waiting for data...")
 
@@ -120,14 +134,15 @@ fp = open(filename+".txt", "w")
 
 rx_buf = bytearray()
 while samples:
-   if samples > UDP_SAMPLES_PER_READ:
-      qty = UDP_SAMPLES_PER_READ
+   if samples > SAMPLES_PER_READ:
+      qty = SAMPLES_PER_READ
    else:
       qty = samples
    try:
       rx_buf.extend(s.recvfrom(qty*4)[0])
    except:
       print("ERROR: RX TimeOut (%d missing samples). Please, try again." % (samples))
+      print("HINTS: check the socket type (TCP or UDP).")
       exit()
    samples = samples - qty
 
