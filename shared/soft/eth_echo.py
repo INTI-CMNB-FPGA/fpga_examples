@@ -20,7 +20,7 @@
 import socket, argparse, re, time
 from struct import *
 
-SAMPLES_PER_READ = 1024
+MAX_BYTES = 4096
 
 ###################################################################################################
 # Parsing the command line
@@ -62,7 +62,7 @@ parser.add_argument(
    '-s', '--samples',
    metavar     = 'NUM_OF_SAMPLES',
    default     = '1024',
-   help        = ''
+   help        = '(4 bytes)'
 )
 
 parser.add_argument(
@@ -105,6 +105,7 @@ print("Address: %s" % (ip_addr))
 print("Port:    %s" % (port))
 print("Samples: %s" % (str(samples)))
 print("Index:   %s" % (str(index)))
+print("Socket:  %s" % ("UDP" if is_udp else "TCP"))
 
 try:
    if is_udp:
@@ -119,6 +120,10 @@ except:
 
 s.settimeout(1.0)
 
+#
+# TX
+#
+
 print("Sending parameters")
 
 tx_buf  = pack("i",samples)
@@ -128,33 +133,52 @@ if is_udp:
 else:
    s.send(tx_buf)
 
+#
+# RX
+#
+
 print("Waiting for data...")
 
-fp = open(filename+".txt", "w")
+bytes = samples * 4
 
 rx_buf = bytearray()
-while samples:
-   if samples > SAMPLES_PER_READ:
-      qty = SAMPLES_PER_READ
-   else:
-      qty = samples
+while bytes > 0:
+   to_read = MAX_BYTES if bytes > MAX_BYTES else bytes
    try:
-      rx_buf.extend(s.recvfrom(qty*4)[0])
+      if is_udp:
+         recv = s.recvfrom(to_read)[0]
+      else:
+         recv = s.recv(to_read)
+      rx_buf.extend(recv)
    except:
-      print("ERROR: RX TimeOut (%d missing samples). Please, try again." % (samples))
+      print("ERROR: RX TimeOut (%d missing bytes). Please, try again." % (bytes))
       print("HINTS: check the socket type (TCP or UDP).")
-      exit()
-   samples = samples - qty
+      bytes = 0
+   bytes -= len(recv)
 
-print("Data received, processing...")
-
-for aux in iter_unpack("i", rx_buf):
-    data = aux[0]
-    if index != data:
-       print("ERROR: received (%d) != awaited (%d)" % (data, index))
-    index+=1
-    fp.write("%d\n" % (data))
-
-print("Done")
 s.close()
+
+#
+# Check
+#
+
+print("Verifying...")
+
+if samples != (len(rx_buf)/4):
+   print("ERROR: there were less samples than awaited (%d vs %d)" % (samples, len(rx_buf)/4))
+else:
+   print("INFO: %d samples received" % samples)
+
+fp = open(filename+".txt", "w")
+try:
+   for aux in iter_unpack("i", rx_buf):
+       data = aux[0]
+       if index != data:
+          print("ERROR: received (%d) != awaited (%d)" % (data, index))
+       index+=1
+       fp.write("%d\n" % (data))
+except:
+   print("ERROR: samples must be a multiple of 4 bytes (%d received)" % len(rx_buf))
 fp.close()
+
+print("INFO: the samples were written to %s.txt" % filename)
