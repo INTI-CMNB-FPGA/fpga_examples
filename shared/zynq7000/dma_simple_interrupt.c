@@ -195,7 +195,7 @@ int dma_example() {
 
         for (i = 0; i < SAMPLES; i++) {
             if (rx_buf[i] != tx_buf[i]) {
-               xil_printf("ERROR: mismatch (data %d) between TX(%d) and RX(%d)\n", i+1, rx_buf[i], tx_buf[i]);
+               xil_printf("ERROR: mismatch (data %d) between TX(%d) and RX(%d)\n", i+1, tx_buf[i], rx_buf[i]);
                return XST_FAILURE;
             }
         }

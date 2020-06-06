@@ -5,7 +5,7 @@ This example shows how to use DIP switches, push-buttons and LEDs.
 
 # How to run synthesis, implementation and programming
 
-* A free Quartus license is enough for the used FPGA (this example uses Quartus2 15.0).
+* A free Quartus license is enough for the used FPGA (this example uses Quartus Prime Lite 18.1).
 * Prepare the environment to use Quartus.
 * Run synthesis, implementation and bitstream generation:
 ```
