@@ -20,7 +20,7 @@
 import socket, argparse, re, time
 from struct import *
 
-RECV_SIZE = 512
+MAX_BYTES = 4096
 
 ###################################################################################################
 # Parsing the command line
@@ -46,10 +46,10 @@ parser.add_argument(
    help        = ''
 )
 
-#parser.add_argument(
-#   '--foobar',
-#   action='store_true'
-#)
+parser.add_argument(
+   '-u', '--udp',
+    action     ='store_true'
+)
 
 parser.add_argument(
    '-f', '--filename',
@@ -62,7 +62,7 @@ parser.add_argument(
    '-s', '--samples',
    metavar     = 'NUM_OF_SAMPLES',
    default     = '1024',
-   help        = ''
+   help        = '(4 bytes)'
 )
 
 parser.add_argument(
@@ -99,45 +99,86 @@ port     = options.port
 filename = options.filename
 samples  = getInt(options.samples)
 index    = options.index
+is_udp   = options.udp
 
 print("Address: %s" % (ip_addr))
 print("Port:    %s" % (port))
 print("Samples: %s" % (str(samples)))
 print("Index:   %s" % (str(index)))
+print("Socket:  %s" % ("UDP" if is_udp else "TCP"))
 
 try:
-   s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)#STREAM)
-   s.connect((ip_addr, port))
+   if is_udp:
+      s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+   else:
+      s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      s.connect((ip_addr, port))
 except:
    print("Connection refused")
+   print("HINTS: check the IP address, the port and the socket type (TCP or UDP).")
    exit()
+
+s.settimeout(1.0)
+
+#
+# TX
+#
+
+print("Sending parameters")
 
 tx_buf  = pack("i",samples)
 tx_buf += pack("i",index)
-s.send(tx_buf)
+if is_udp:
+   s.sendto(tx_buf, (ip_addr, port))
+else:
+   s.send(tx_buf)
 
-#fp = open(filename+".txt", "w")
+#
+# RX
+#
 
-awaited = index
-while samples > 0:
-   if samples > RECV_SIZE:
-      qty = RECV_SIZE
-   else:
-      qty = samples
-   rx_buf = s.recv(qty*4)
-   for i in range (0,qty):
-       index = i*4
-       try:
-          rx_val = str(unpack("i",rx_buf[index:index+4])[0])
-          if rx_val != str(awaited):
-             print("Missmatch: %s (RX) != %s (Awaited)" % (rx_val, str(awaited)));
-          awaited +=1
-       except:
-          print("Not enought samples received (%i were lost). Please try again." % (samples - i))
-          s.close()
-          exit()
-       fp.write("%s\n" % (rx_val))
-   samples = samples - qty
+print("Waiting for data...")
+
+bytes = samples * 4
+
+rx_buf = bytearray()
+while bytes > 0:
+   to_read = MAX_BYTES if bytes > MAX_BYTES else bytes
+   try:
+      if is_udp:
+         recv = s.recvfrom(to_read)[0]
+      else:
+         recv = s.recv(to_read)
+      rx_buf.extend(recv)
+   except:
+      print("ERROR: RX TimeOut (%d missing bytes). Please, try again." % (bytes))
+      print("HINTS: check the socket type (TCP or UDP).")
+      bytes = 0
+   bytes -= len(recv)
 
 s.close()
-#fp.close()
+
+#
+# Check
+#
+
+print("Verifying...")
+
+if samples != (len(rx_buf)/4):
+   print("ERROR: there were less samples than awaited (%d vs %d)" % (samples, len(rx_buf)/4))
+else:
+   print("INFO: %d samples received" % samples)
+
+fp = open(filename+".txt", "w")
+try:
+   for aux in iter_unpack("i", rx_buf):
+       data = aux[0]
+       if index != data:
+          print("ERROR: received (%d) != awaited (%d)" % (data, index))
+       index+=1
+       fp.write("%d\n" % (data))
+except:
+   print("ERROR: samples must be a multiple of 4 bytes (%d received)" % len(rx_buf))
+fp.close()
+
+print("INFO: the samples were written to %s.txt" % filename)
